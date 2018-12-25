@@ -7,14 +7,25 @@ var btn = document.getElementsByClassName("myBtn");
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
+// Heading for all explanations
+var head = [
+  "A",
+  "B",
+  "C",
+  "D"];
+
 // Explanation for each Projects
-var explanation = ["A"];
+var explanation = [
+  "a",
+  "b",
+  "c",
+  "d"];
 
 // When the user clicks the button, open the popup
 var i;
 for (i = 0; i < btn.length; i++) {
   btn[i].onclick = function() {
-    document.getElementById('text_head').innerHTML=explanation[i];
+    document.getElementById('text_head').innerHTML=head[i];
     document.getElementById('text_expla').innerHTML=explanation[i];
     popup.style.display = "block";
   }
