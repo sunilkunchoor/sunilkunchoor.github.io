@@ -24,9 +24,9 @@ var explanation = [
 // When the user clicks the button, open the popup
 var i;
 for (i = 0; i < btn.length; i++) {
+  document.getElementById('text_head').innerHTML=head[i];
+  document.getElementById('text_expla').innerHTML=explanation[i];
   btn[i].onclick = function() {
-    document.getElementById('text_head').innerHTML=head[i];
-    document.getElementById('text_expla').innerHTML=explanation[i];
     popup.style.display = "block";
   }
 }
