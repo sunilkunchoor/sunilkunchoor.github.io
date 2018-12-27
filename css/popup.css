@@ -23,6 +23,10 @@
   width: 60%;
 }
 
+.projectDetail {
+  display: none;
+}
+
 /* The Close Button */
 .close {
   color: #aaaaaa;
