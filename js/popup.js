@@ -4,8 +4,6 @@ var popup = document.getElementById('myPopup');
 // Get the button that opens the modal
 var btn0 = document.getElementsByClassName("myBtn")[0];
 var btn1 = document.getElementsByClassName("myBtn")[1];
-var btn2 = document.getElementsByClassName("myBtn")[2];
-var btn3 = document.getElementsByClassName("myBtn")[3];
 
 // Get the button that opens the modal
 var pDetail = document.getElementsByClassName("projectDetail");
@@ -24,22 +22,11 @@ btn1.onclick = function() {
   popup.style.display = "block";
 }
 
-btn2.onclick = function() {
-  pDetail[2].style.display = "block";
-  popup.style.display = "block";
-}
-
-btn3.onclick = function() {
-  pDetail[3].style.display = "block";
-  popup.style.display = "block";
-}
 
 // When the user clicks on <span> (x), close the popup
 span.onclick = function() {
   pDetail[0].style.display = "none";
   pDetail[1].style.display = "none";
-  pDetail[2].style.display = "none";
-  pDetail[3].style.display = "none";
   popup.style.display = "none";
 }
 
@@ -48,8 +35,6 @@ window.onclick = function(event) {
   if (event.target == popup) {
     pDetail[0].style.display = "none";
     pDetail[1].style.display = "none";
-    pDetail[2].style.display = "none";
-    pDetail[3].style.display = "none";
     popup.style.display = "none";
   }
 }
