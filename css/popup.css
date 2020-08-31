@@ -46,3 +46,8 @@
 .myBtn {
   cursor: pointer;
 }
+
+/* Disable Hyperlinks for the Buttons in the interest page. */
+a {
+    color: inherit;
+}
