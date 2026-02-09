@@ -1,0 +1,35 @@
+"use client";
+
+import { ArrowRight, Terminal } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+export default function Hero() {
+  return (
+    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+      <div className="container mx-auto px-6 relative z-10 text-center">
+        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+          <Terminal className="w-4 h-4 text-primary" />
+          <span className="text-xs font-mono font-bold text-primary tracking-widest uppercase">Senior MLOps Engineer</span>
+        </div>
+        
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-6 duration-1000">
+          Building the <span className="text-gradient-blue">Guardrails</span> for Enterprise AI
+        </h1>
+        
+        <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
+          Bridging the gap between Data Science innovation and Production reliability at scale on Azure & Databricks.
+        </p>
+        
+        <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300">
+          <Button className="btn-primary h-12 px-8">
+            View Projects
+            <ArrowRight className="ml-2 w-4 h-4" />
+          </Button>
+          <Button className="btn-secondary h-12 px-8">
+            Contact Me
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
