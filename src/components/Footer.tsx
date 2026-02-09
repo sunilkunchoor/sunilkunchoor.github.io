@@ -14,13 +14,13 @@ export default function Footer() {
           </div>
           
           <div className="flex space-x-6">
-            <Link href="https://github.com" className="p-3 bg-white/5 rounded-full hover:bg-primary/20 hover:text-primary transition-all">
+            <Link href="https://github.com/sunilkunchoor" className="p-3 bg-white/5 rounded-full hover:bg-primary/20 hover:text-primary transition-all">
               <Github className="w-5 h-5" />
             </Link>
-            <Link href="https://linkedin.com" className="p-3 bg-white/5 rounded-full hover:bg-primary/20 hover:text-primary transition-all">
+            <Link href="https://www.linkedin.com/in/sunilkunchoor" className="p-3 bg-white/5 rounded-full hover:bg-primary/20 hover:text-primary transition-all">
               <Linkedin className="w-5 h-5" />
             </Link>
-            <Link href="mailto:hello@example.com" className="p-3 bg-white/5 rounded-full hover:bg-primary/20 hover:text-primary transition-all">
+            <Link href="mailto:sunilkunchoor@gmail.com" className="p-3 bg-white/5 rounded-full hover:bg-primary/20 hover:text-primary transition-all">
               <Mail className="w-5 h-5" />
             </Link>
           </div>

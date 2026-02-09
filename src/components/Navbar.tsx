@@ -45,10 +45,10 @@ export default function Navbar() {
             </Link>
           ))}
           <div className="flex items-center space-x-4 border-l border-white/10 pl-8 ml-4">
-            <Link href="https://github.com" target="_blank" className="text-slate-400 hover:text-white transition-colors">
+            <Link href="https://github.com/sunilkunchoor" target="_blank" className="text-slate-400 hover:text-white transition-colors">
               <Github className="w-5 h-5" />
             </Link>
-            <Link href="https://linkedin.com" target="_blank" className="text-slate-400 hover:text-white transition-colors">
+            <Link href="https://www.linkedin.com/in/sunilkunchoor" target="_blank" className="text-slate-400 hover:text-white transition-colors">
               <Linkedin className="w-5 h-5" />
             </Link>
             <Button variant="default" className="btn-primary" size="sm">
