@@ -2,7 +2,7 @@ import type {Metadata} from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Sunil Kunchoor - Senior MLOps Engineer',
+  title: 'Sunil Kunchoor Basavaraju - Senior MLOps Engineer',
   description: 'Senior MLOps Engineer bridging Data Science innovation with Production reliability.',
 };
 

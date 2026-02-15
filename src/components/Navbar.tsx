@@ -29,7 +29,7 @@ export default function Navbar() {
             <Cpu className="w-6 h-6 text-primary" />
           </div>
           <span className="font-headline font-bold text-xl tracking-tight">
-            Sunil <span className="text-primary">Kunchoor</span>
+            Sunil <span className="text-primary">Kunchoor</span> Basavaraju
           </span>
         </Link>
 

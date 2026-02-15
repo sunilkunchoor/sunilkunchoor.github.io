@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           <div>
-            <div className="text-xl font-bold mb-2">Sunil Kunchoor</div>
+            <div className="text-xl font-bold mb-2">Sunil Kunchoor Basavaraju</div>
             <p className="text-slate-500 text-sm">Senior MLOps Engineer • Delivering Enterprise AI Excellence</p>
           </div>
           
