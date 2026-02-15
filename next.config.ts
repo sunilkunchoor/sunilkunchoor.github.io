@@ -5,11 +5,12 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  output: "export",  // <=== enables static exports
+  output: "export",  // Enables static exports for GitHub Pages
   eslint: {
     ignoreDuringBuilds: true,
   },
   images: {
+    unoptimized: true, // Required for static export on GitHub Pages
     remotePatterns: [
       {
         protocol: 'https',
