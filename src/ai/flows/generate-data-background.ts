@@ -58,51 +58,42 @@ const generateDataBackgroundFlow = ai.defineFlow(
         return { backgroundDataUri: null };
       }
 
-      // Wait until the operation completes.
-      while (!operation.done) {
+      // Wait until the operation completes (max 12 attempts / 1 minute)
+      let attempts = 0;
+      while (!operation.done && attempts < 12) {
         operation = await ai.checkOperation(operation);
+        if (operation.done) break;
         await new Promise(resolve => setTimeout(resolve, 5000));
+        attempts++;
       }
 
-      if (operation.error) {
+      if (!operation.done || operation.error) {
+        console.error('Video generation failed or timed out:', operation.error);
         return { backgroundDataUri: null };
       }
 
-      const video = operation.output?.message?.content.find(p => !!p.media);
-      if (!video) {
+      const videoPart = operation.output?.message?.content.find(p => !!p.media);
+      if (!videoPart?.media?.url) {
         return { backgroundDataUri: null };
       }
 
-      const fetch = (await import('node-fetch')).default;
+      // Use built-in fetch (Node 18+) and process in memory instead of disk
       const videoDownloadResponse = await fetch(
-        `${video.media!.url}&key=${process.env.GEMINI_API_KEY}`
+        `${videoPart.media.url}&key=${process.env.GEMINI_API_KEY}`
       );
 
-      if (!videoDownloadResponse || videoDownloadResponse.status !== 200 || !videoDownloadResponse.body) {
+      if (!videoDownloadResponse.ok) {
         return { backgroundDataUri: null };
       }
 
-      const fs = require('fs');
-      const { Readable } = require('stream');
-      const path = 'output.mp4';
-
-      const writeStream = fs.createWriteStream(path);
-      await new Promise((resolve, reject) => {
-        Readable.from(videoDownloadResponse.body).pipe(writeStream);
-        writeStream.on('finish', resolve);
-        writeStream.on('error', reject);
-      });
-
-      const backgroundDataUri = await new Promise<string>((resolve, reject) => {
-        fs.readFile(path, { encoding: 'base64' }, (err: any, data: any) => {
-          if (err) reject(err);
-          else resolve('data:video/mp4;base64,' + data);
-        });
-      });
-
-      return { backgroundDataUri };
+      const arrayBuffer = await videoDownloadResponse.arrayBuffer();
+      const base64 = Buffer.from(arrayBuffer).toString('base64');
+      
+      return { 
+        backgroundDataUri: `data:video/mp4;base64,${base64}` 
+      };
     } catch (error) {
-      // Gracefully handle billing or quota errors
+      console.error('Error in generateDataBackgroundFlow:', error);
       return { backgroundDataUri: null };
     }
   }
