@@ -29,9 +29,9 @@ export default function Hero() {
             </Link>
           </Button>
           <Button asChild className="btn-secondary h-12 px-8">
-            <Link href="https://www.linkedin.com/in/sunilkunchoor" target="_blank">
+            <a href="mailto:sunilkunchoor@gmail.com">
               Contact Me
-            </Link>
+            </a>
           </Button>
         </div>
       </div>

@@ -54,8 +54,10 @@ export default function Navbar() {
             <Link href="https://www.linkedin.com/in/sunilkunchoor" target="_blank" className="text-slate-400 hover:text-white transition-colors">
               <Linkedin className="w-5 h-5" />
             </Link>
-            <Button variant="default" className="btn-primary" size="sm">
-              Contact Me
+            <Button asChild variant="default" className="btn-primary" size="sm">
+              <a href="mailto:sunilkunchoor@gmail.com">
+                Contact Me
+              </a>
             </Button>
           </div>
         </div>
@@ -84,8 +86,10 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="pt-4 border-t border-white/10 flex flex-col space-y-4">
-              <Button variant="default" className="btn-primary w-full">
-                Contact Me
+              <Button asChild variant="default" className="btn-primary w-full">
+                <a href="mailto:sunilkunchoor@gmail.com">
+                  Contact Me
+                </a>
               </Button>
             </div>
           </div>
