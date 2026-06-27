@@ -13,8 +13,8 @@ export default function Hero() {
           <span className="text-xs font-mono font-bold text-primary tracking-widest uppercase">Senior MLOps & AI Platform Engineer</span>
         </div>
         
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-6 duration-1000">
-          Building the <span className="text-gradient-blue">Guardrails</span> for Enterprise AI
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight max-w-5xl mx-auto animate-in fade-in slide-in-from-bottom-6 duration-1000">
+          Engineering Production-Grade <span className="text-gradient-blue">MLOps & AI Platforms</span>
         </h1>
         
         <p className="text-xl text-slate-400 max-w-3xl mx-auto mb-10 leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">

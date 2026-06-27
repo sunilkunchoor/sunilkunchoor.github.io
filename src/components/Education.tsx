@@ -5,6 +5,13 @@ import { GraduationCap, Calendar, BookOpen, ExternalLink } from 'lucide-react';
 export default function Education() {
   const education = [
     {
+      degree: "AI Performance Engineer Fellowship",
+      institution: "Nebius Academy",
+      period: "2024",
+      description: "Advanced fellowship program focusing on high-performance training, inference, and hardware-aware optimization for deep learning models.",
+      link: "https://www.credly.com/users/sunilkunchoor/badges/credly"
+    },
+    {
       degree: "Post Graduate Program – AI & ML",
       institution: "Great Learning (University of Texas, Austin)",
       period: "2021 – 2022",
@@ -28,40 +35,40 @@ export default function Education() {
           <p className="text-slate-400">The theoretical foundations of my engineering practices.</p>
         </div>
 
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           {education.map((edu, index) => (
-            <div key={index} className="glass-card p-8 rounded-2xl hover:border-primary/30 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between min-h-[280px]">
+            <div key={index} className="glass-card p-8 rounded-2xl hover:border-primary/30 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between min-h-[300px]">
               <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
                 <GraduationCap className="w-16 h-16 text-primary" />
               </div>
-              
+
               <div>
                 <div className="flex items-center gap-2 text-primary font-mono text-sm mb-4">
                   <Calendar className="w-4 h-4" />
                   {edu.period}
                 </div>
-                
-                <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">{edu.degree}</h3>
-                
+
+                <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors min-h-[56px] flex items-center">{edu.degree}</h3>
+
                 <div className="flex items-center gap-2 text-slate-300 font-semibold mb-4">
                   <BookOpen className="w-4 h-4 text-primary/70" />
                   {edu.institution}
                 </div>
-                
+
                 <p className="text-slate-400 leading-relaxed text-sm mb-4">
                   {edu.description}
                 </p>
               </div>
-              
+
               {edu.link && (
                 <div className="mt-auto pt-4 border-t border-white/5">
-                  <a 
-                    href={edu.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
+                  <a
+                    href={edu.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-white transition-colors group/link"
                   >
-                    View ePortfolio
+                    View Verification
                     <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
                   </a>
                 </div>
@@ -73,4 +80,5 @@ export default function Education() {
     </section>
   );
 }
+
 

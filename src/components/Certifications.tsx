@@ -25,13 +25,6 @@ export default function Certifications() {
       link: "https://www.credly.com/badges/ebfdf196-e4da-4b88-bb0f-9b689d82a2cf/public_url",
       description: "Advanced CI/CD automation and workflow optimization for enterprise-grade software delivery.",
       icon: ShieldCheck
-    },
-    {
-      title: "AI Performance Engineer Fellowship",
-      issuer: "Nebius Academy",
-      link: "https://www.credly.com/users/sunilkunchoor/badges/credly",
-      description: "Advanced fellowship program focusing on high-performance training, inference, and optimization for deep learning models.",
-      icon: Award
     }
   ];
 
@@ -43,7 +36,7 @@ export default function Certifications() {
           <p className="text-slate-400">Validated expertise in cloud platforms and AI engineering.</p>
         </div>
 
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           {certifications.map((cert, index) => (
             <Link 
               key={index} 
@@ -76,4 +69,5 @@ export default function Certifications() {
     </section>
   );
 }
+
 
