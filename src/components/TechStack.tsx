@@ -2,8 +2,12 @@
 
 export default function TechStack() {
   const skills = [
-    "Azure", "Databricks", "Kubernetes", "Docker", "Terraform", "MLflow", 
-    "Python", "OpenVINO", "GitHub Actions", "FastAPI", "Prometheus", "Pytest"
+    "Azure", "AWS", "Kubernetes", "Docker", "Terraform",
+    "Databricks", "MLflow", "Azure ML", "Apache Spark", "Apache Airflow",
+    "LangChain", "OpenAI", "OpenVINO", "ONNX", "Hugging Face",
+    "Dynatrace", "Grafana", "Prometheus", "Snyk",
+    "GitHub Actions", "Azure DevOps", "Jenkins",
+    "Python", "Rust", "Bash"
   ];
 
   return (
@@ -27,3 +31,4 @@ export default function TechStack() {
     </section>
   );
 }
+

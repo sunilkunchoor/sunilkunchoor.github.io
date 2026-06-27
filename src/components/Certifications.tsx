@@ -6,25 +6,32 @@ import Link from 'next/link';
 export default function Certifications() {
   const certifications = [
     {
-      title: "Databricks Data and GenAI Certifications",
+      title: "Databricks — Data, ML & GenAI",
       issuer: "Databricks",
-      link: "https://www.credential.net/profile/sunilkunchoor",
+      link: "https://www.credential.net/profile/sunilkunchoor/",
       description: "Expertise in large-scale data processing and generative AI implementation on the Databricks platform.",
       icon: Award
     },
     {
-      title: "IBM Data Science and Data Analysis Specialization",
-      issuer: "IBM",
-      link: "https://www.credly.com/users/sunilkunchoor",
-      description: "Comprehensive training in statistical analysis, predictive modeling, and data visualization.",
+      title: "IBM Data Science Professional Certificate",
+      issuer: "Coursera / IBM",
+      link: "https://coursera.org/share/1d8c22add8a9d639e0047b765798c133",
+      description: "Comprehensive training in statistical analysis, predictive modeling, and data science methodologies.",
       icon: Award
     },
     {
-      title: "GitHub Actions Specialization",
+      title: "GitHub Actions Certification",
       issuer: "GitHub",
-      link: "https://www.credly.com/users/sunilkunchoor",
+      link: "https://www.credly.com/badges/ebfdf196-e4da-4b88-bb0f-9b689d82a2cf/public_url",
       description: "Advanced CI/CD automation and workflow optimization for enterprise-grade software delivery.",
       icon: ShieldCheck
+    },
+    {
+      title: "AI Performance Engineer Fellowship",
+      issuer: "Nebius Academy",
+      link: "https://www.credly.com/users/sunilkunchoor/badges/credly",
+      description: "Advanced fellowship program focusing on high-performance training, inference, and optimization for deep learning models.",
+      icon: Award
     }
   ];
 
@@ -36,7 +43,7 @@ export default function Certifications() {
           <p className="text-slate-400">Validated expertise in cloud platforms and AI engineering.</p>
         </div>
 
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {certifications.map((cert, index) => (
             <Link 
               key={index} 
@@ -51,7 +58,7 @@ export default function Certifications() {
                 <ExternalLink className="w-5 h-5 text-slate-500 group-hover:text-primary transition-colors" />
               </div>
               
-              <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors leading-tight">
+              <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors leading-tight min-h-[56px] flex items-center">
                 {cert.title}
               </h3>
               
@@ -69,3 +76,4 @@ export default function Certifications() {
     </section>
   );
 }
+

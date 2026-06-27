@@ -1,6 +1,6 @@
 "use client";
 
-import { GraduationCap, Calendar, BookOpen } from 'lucide-react';
+import { GraduationCap, Calendar, BookOpen, ExternalLink } from 'lucide-react';
 
 export default function Education() {
   const education = [
@@ -8,13 +8,15 @@ export default function Education() {
       degree: "Post Graduate Program – AI & ML",
       institution: "Great Learning (University of Texas, Austin)",
       period: "2021 – 2022",
-      description: "Specialized training in Artificial Intelligence and Machine Learning, focusing on deep learning, computer vision, and NLP."
+      description: "Specialized training in Artificial Intelligence and Machine Learning, focusing on deep learning, computer vision, and NLP.",
+      link: "https://eportfolio.mygreatlearning.com/sunil-kunchoor-basavaraju"
     },
     {
       degree: "Master of Science (Mathematics)",
       institution: "Bangalore University",
       period: "2012 – 2014",
-      description: "Advanced mathematics degree providing the theoretical and statistical foundation for machine learning algorithms and data science."
+      description: "Advanced mathematics degree providing the theoretical and statistical foundation for machine learning algorithms and data science.",
+      link: null
     }
   ];
 
@@ -28,26 +30,42 @@ export default function Education() {
 
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
           {education.map((edu, index) => (
-            <div key={index} className="glass-card p-8 rounded-2xl hover:border-primary/30 transition-all duration-300 group relative overflow-hidden">
+            <div key={index} className="glass-card p-8 rounded-2xl hover:border-primary/30 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between min-h-[280px]">
               <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
                 <GraduationCap className="w-16 h-16 text-primary" />
               </div>
               
-              <div className="flex items-center gap-2 text-primary font-mono text-sm mb-4">
-                <Calendar className="w-4 h-4" />
-                {edu.period}
+              <div>
+                <div className="flex items-center gap-2 text-primary font-mono text-sm mb-4">
+                  <Calendar className="w-4 h-4" />
+                  {edu.period}
+                </div>
+                
+                <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">{edu.degree}</h3>
+                
+                <div className="flex items-center gap-2 text-slate-300 font-semibold mb-4">
+                  <BookOpen className="w-4 h-4 text-primary/70" />
+                  {edu.institution}
+                </div>
+                
+                <p className="text-slate-400 leading-relaxed text-sm mb-4">
+                  {edu.description}
+                </p>
               </div>
               
-              <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">{edu.degree}</h3>
-              
-              <div className="flex items-center gap-2 text-slate-300 font-semibold mb-4">
-                <BookOpen className="w-4 h-4 text-primary/70" />
-                {edu.institution}
-              </div>
-              
-              <p className="text-slate-400 leading-relaxed text-sm">
-                {edu.description}
-              </p>
+              {edu.link && (
+                <div className="mt-auto pt-4 border-t border-white/5">
+                  <a 
+                    href={edu.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-white transition-colors group/link"
+                  >
+                    View ePortfolio
+                    <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                  </a>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -55,3 +73,4 @@ export default function Education() {
     </section>
   );
 }
+
