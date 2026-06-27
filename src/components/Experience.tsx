@@ -9,37 +9,50 @@ export default function Experience() {
       location: "London, UK",
       period: "Sep 2022 – Present",
       role: "Senior MLOps Engineer",
-      description: "Deployed and managed end-to-end ML infrastructure for a Tier-1 UK Retailer.",
+      description: "Delivering enterprise ML infrastructure for Marks & Spencer (top UK retailer).",
       achievements: [
-        "Architected a 'Traffic Light' deployment validation system, reducing deployment lead time by 83% (from 2 hours to 20 minutes).",
-        "Managed a robust ML platform on Azure Cloud, utilizing Databricks and Azure Kubernetes Service (AKS).",
-        "Consolidated fragmented feature tables into a centralized Feature Store, accelerating feature engineering lifecycle by 40%.",
-        "Enforced strict compliance and GDPR standards across the Data Science lifecycle.",
-        "Designed operational dashboards for model drift and system health monitoring."
-      ]
+        "Architected an automated deployment validation system that replaced manual multi-team sign-off with policy-based checks, cutting deployment lead time 83% (from 2 hours to 20 minutes).",
+        "Managed an end-to-end ML platform on Azure, using Databricks for scalable model training and Azure Kubernetes Service for high-availability inference serving.",
+        "Consolidated fragmented, duplicate feature tables into a centralized feature store, eliminating data silos and speeding up the feature engineering lifecycle by 40%.",
+        "Enforced compliance and governance standards, including GDPR adherence, across the data science lifecycle for sensitive retail data.",
+        "Designed operational dashboards to monitor model drift and system health, giving real-time visibility to both business and operations stakeholders.",
+        "Built custom plugins for Apache Airflow and Databricks Operators to extend pipeline orchestration capability.",
+        "Maintained a shared feature-engineering repository and coordinated requirements across multiple enterprise data science teams."
+      ],
+      tools: ["Databricks", "Airflow", "MLflow", "Azure", "Dynatrace"]
     },
     {
       company: "DAVE.AI",
       location: "Bangalore, India",
       period: "Aug 2021 – Aug 2022",
-      role: "Data Scientist (ML Engineer Focus)",
+      role: "Data Scientist",
       description: "Focused on Edge AI optimization and cost-effective infrastructure.",
       achievements: [
-        "Partnered with Intel to optimize ASR and NLP models using OpenVINO for edge device deployment.",
-        "Reduced infrastructure cost per store by 40% through re-architected inference engines.",
-        "Developed ASR models achieving a Word Error Rate (WER) of 0.1–0.2 across Banking and Retail domains."
-      ]
+        "Partnered with Intel to optimize Automatic Speech Recognition (ASR) and NLP models using the OpenVINO framework, deploying them on edge devices for Quick Service Restaurant (QSR) applications.",
+        "Re-architected inference infrastructure for QSR clients using optimized inference engines, cutting per-store infrastructure cost by 40%.",
+        "Built ASR models achieving a Word Error Rate of 0.1–0.2 across Banking, Retail, Food Chain, and Automotive domains.",
+        "Worked as an end-to-end ML engineer on a food-chain domain project spanning image, speech, and text analysis.",
+        "Built a benchmarking framework to evaluate hardware requirements for in-house AI components.",
+        "Partnered with Nvidia on a proof-of-concept using Jetson devices for the QSR system."
+      ],
+      tools: ["Python", "TensorFlow", "NLTK", "OpenCV", "OpenVINO", "AWS", "GCP"]
     },
     {
       company: "ANSRSOURCE",
       location: "Bangalore, India",
       period: "Apr 2016 – Aug 2021",
-      role: "Business Analyst / Product Lead",
-      description: "Led product strategy and automation initiatives.",
+      role: "Business Analyst",
+      description: "Led product strategy, operations analytics, and QA automation.",
       achievements: [
-        "Built and trained a team of 70 professionals, generating an ARR of $1.5 Million USD.",
-        "Developed 'Skywalker,' an in-house QA tool that reduced manual effort by 60% and improved accuracy to 99.5%."
-      ]
+        "Built and led a team of 70 from the ground up, generating $1.5M in Annual Recurring Revenue.",
+        "Developed an in-house QA automation tool that cut manual data-categorization effort by 60% and raised data accuracy to 99.5%.",
+        "Used predictive models to shape strategies addressing growth and operations issues.",
+        "Defined and tracked KPIs for existing and new functions/projects across the company.",
+        "Partnered with 20+ data analysts on data quality, integrity, and new approaches to presenting existing data.",
+        "Acted as liaison across operations, technology, vendors, and clients, managing BAU support alongside project work.",
+        "Collaborated with stakeholders to refine product requirements, functional specs, and product direction."
+      ],
+      tools: ["Pandas", "JIRA", "Tableau", "Excel VBA", "Power BI", "IBM Watson Studio", "MySQL", "Scikit-Learn"]
     },
     {
       company: "ANSRSOURCE",
@@ -48,8 +61,9 @@ export default function Experience() {
       role: "Content Programmer",
       description: "Foundation in software engineering and web platforms.",
       achievements: [
-        "Developed interactive e-learning platforms using Python, Django, and Flask."
-      ]
+        "Developed interactive e-learning platforms for publishers and universities using Python, Django, and Flask."
+      ],
+      tools: ["Python", "Django", "Flask", "MySQL", "JavaScript", "MongoDB", "React"]
     }
   ];
 
@@ -95,6 +109,16 @@ export default function Experience() {
                         </li>
                       ))}
                     </ul>
+
+                    {exp.tools && (
+                      <div className={`flex flex-wrap gap-2 mt-6 ${index % 2 === 0 ? 'md:justify-end' : 'md:justify-start'}`}>
+                        {exp.tools.map((t) => (
+                          <span key={t} className="text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded bg-white/5 border border-white/10 text-slate-300">
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="hidden md:block w-1/2" />

@@ -7,7 +7,7 @@ export default function Education() {
     {
       degree: "AI Performance Engineer Fellowship",
       institution: "Nebius Academy",
-      period: "2024",
+      period: "2026",
       description: "Advanced fellowship program focusing on high-performance training, inference, and hardware-aware optimization for deep learning models.",
       link: "https://www.credly.com/users/sunilkunchoor/badges/credly"
     },
@@ -24,6 +24,13 @@ export default function Education() {
       period: "2012 – 2014",
       description: "Advanced mathematics degree providing the theoretical and statistical foundation for machine learning algorithms and data science.",
       link: null
+    },
+    {
+      degree: "Bachelor of Science (Stats, Math, CS)",
+      institution: "Bangalore University",
+      period: "2009 – 2012",
+      description: "Undergraduate degree in Statistics, Mathematics, and Computer Science, establishing strong computational and statistical foundations.",
+      link: null
     }
   ];
 
@@ -35,9 +42,9 @@ export default function Education() {
           <p className="text-slate-400">The theoretical foundations of my engineering practices.</p>
         </div>
 
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
           {education.map((edu, index) => (
-            <div key={index} className="glass-card p-8 rounded-2xl hover:border-primary/30 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between min-h-[300px]">
+            <div key={index} className="glass-card p-8 rounded-2xl hover:border-primary/30 transition-all duration-300 group relative overflow-hidden flex flex-col justify-between min-h-[280px]">
               <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
                 <GraduationCap className="w-16 h-16 text-primary" />
               </div>
@@ -80,5 +87,3 @@ export default function Education() {
     </section>
   );
 }
-
-
