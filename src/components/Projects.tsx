@@ -50,10 +50,10 @@ export default function Projects() {
     {
       id: 'edge-compliance',
       title: '⚡ Edge Compliance Inspector and Load Testing',
-      description: 'A fully automated retail compliance verification engine that combines on-device edge AI with large-scale cloud load testing. The system validates product placement, stock levels, and pricing accuracy using Intel OpenVINO at the edge, while concurrently running AI-driven load simulations in the cloud to ensure robustness under peak traffic conditions.',
+      description: 'A benchmarking study of small form factor hardware devices that manage AI workloads deployed at the edge.',
       tech: ['Intel OpenVINO', 'OpenCV', 'Python', 'Edge Hardware', 'AWS', 'ASR', 'NLP'],
       icon: Eye,
-      githubUrl: 'https://github.com/sunilkunchoor',
+      githubUrl: 'https://github.com/sunilkunchoor/edge-compliance',
       gradient: 'from-green-500/20 to-transparent',
       category: 'work'
     },
@@ -63,12 +63,12 @@ export default function Projects() {
       description: 'A fully automated QA analysis engine using Classification & Clustering',
       tech: ['Scikit-learn', 'Python', 'pandas', 'numpy'],
       icon: Eye,
-      githubUrl: 'https://github.com/sunilkunchoor',
+      githubUrl: 'https://github.com/sunilkunchoor/skywalker',
       gradient: 'from-green-500/20 to-transparent',
       category: 'work'
     },
     {
-      id: 'serverless-profiler',
+      id: 'nebuis-serverless-profiler',
       title: '🛠️ Serverless Model Profiler',
       description: 'CloudNative Hackathon submission. Developed a serverless benchmarking suite that automatically spins up isolated model inference tasks in AWS Lambda containers to profile model latency, cold-start, and memory drift.',
       tech: ['AWS Lambda', 'Docker', 'Python', 'MLflow'],
@@ -79,7 +79,7 @@ export default function Projects() {
     },
     {
       id: 'adgenie',
-      title: '🧞 AdGenie LLMOps',
+      title: '🧞 AdGenie',
       description: 'LLM Lifecycle Management with "Prompts as Code". End-to-end LLM pipeline with automated evaluation loops — GPT-4 acts as a judge to score prompt quality, enabling data-driven prompt engineering at scale with full MLflow lineage tracking.',
       tech: ['LangChain', 'MLflow', 'OpenAI', 'Azure', 'Python'],
       icon: Bot,
