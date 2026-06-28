@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Github, Bot, Eye, Radio, Activity } from 'lucide-react';
 
 export default function Projects() {
-  const [activeTab, setActiveTab] = useState<'all' | 'personal' | 'hackathon'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'personal' | 'hackathon' | 'work'>('all');
 
   const projects = [
     {
@@ -23,9 +23,9 @@ export default function Projects() {
       description: 'Airflow Custom Plugins for seamless integration with various services. End-to-end LLM pipeline with automated evaluation loops — GPT-4 acts as a judge to score prompt quality, enabling data-driven prompt engineering at scale with full MLflow lineage tracking.',
       tech: ['Airflow', 'Custom Plugins', 'Python', 'Azure'],
       icon: Bot,
-      githubUrl: 'https://github.com/skunchoor/airflow-custom-plugins',
+      githubUrl: 'https://github.com/sunilkunchoor/airflow-custom-plugins',
       gradient: 'from-[#9D00FF]/20 to-transparent',
-      category: 'hackathon'
+      category: 'personal'
     },
     {
       id: 'devops-monitor',
@@ -49,13 +49,23 @@ export default function Projects() {
     },
     {
       id: 'edge-compliance',
-      title: '⚡ Edge Compliance Inspector',
-      description: 'Intel Edge AI Hackathon submission. Deployed a high-throughput, low-latency target object detection model using OpenVINO on edge hardware, scanning product availability and layout compliance dynamically on retail shelves.',
-      tech: ['OpenVINO', 'OpenCV', 'Python', 'Edge Hardware'],
+      title: '⚡ Edge Compliance Inspector and Load Testing',
+      description: 'A fully automated retail compliance verification engine that combines on-device edge AI with large-scale cloud load testing. The system validates product placement, stock levels, and pricing accuracy using Intel OpenVINO at the edge, while concurrently running AI-driven load simulations in the cloud to ensure robustness under peak traffic conditions.',
+      tech: ['Intel OpenVINO', 'OpenCV', 'Python', 'Edge Hardware', 'AWS', 'ASR', 'NLP'],
       icon: Eye,
       githubUrl: 'https://github.com/sunilkunchoor',
       gradient: 'from-green-500/20 to-transparent',
-      category: 'hackathon'
+      category: 'work'
+    },
+    {
+      id: 'skywalker',
+      title: '⚡ Skywalker: Automated QA using Classification',
+      description: 'A fully automated QA analysis engine using Classification & Clustering',
+      tech: ['Scikit-learn', 'Python', 'pandas', 'numpy'],
+      icon: Eye,
+      githubUrl: 'https://github.com/sunilkunchoor',
+      gradient: 'from-green-500/20 to-transparent',
+      category: 'work'
     },
     {
       id: 'serverless-profiler',
@@ -93,7 +103,7 @@ export default function Projects() {
           </div>
 
           <div className="flex bg-white/5 p-1 rounded-xl border border-white/10 self-start md:self-auto">
-            {(['all', 'personal', 'hackathon'] as const).map((tab) => (
+            {(['all', 'personal', 'hackathon', 'work'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -102,7 +112,7 @@ export default function Projects() {
                   : 'text-slate-400 hover:text-white'
                   }`}
               >
-                {tab === 'all' ? 'All' : tab === 'personal' ? 'Personal' : 'Hackathons'}
+                {tab === 'all' ? 'All' : tab === 'personal' ? 'Personal' : tab === 'hackathon' ? 'Hackathons' : 'Work'}
               </button>
             ))}
           </div>
