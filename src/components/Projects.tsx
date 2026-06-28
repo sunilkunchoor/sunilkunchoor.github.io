@@ -18,14 +18,14 @@ export default function Projects() {
       category: 'personal'
     },
     {
-      id: 'adgenie',
-      title: '🧞 AdGenie LLMOps',
-      description: 'LLM Lifecycle Management with "Prompts as Code". End-to-end LLM pipeline with automated evaluation loops — GPT-4 acts as a judge to score prompt quality, enabling data-driven prompt engineering at scale with full MLflow lineage tracking.',
-      tech: ['LangChain', 'MLflow', 'OpenAI', 'Azure', 'Python'],
+      id: 'airflow-custom-plugins',
+      title: '🛠️ Airflow Custom Plugins',
+      description: 'Airflow Custom Plugins for seamless integration with various services. End-to-end LLM pipeline with automated evaluation loops — GPT-4 acts as a judge to score prompt quality, enabling data-driven prompt engineering at scale with full MLflow lineage tracking.',
+      tech: ['Airflow', 'Custom Plugins', 'Python', 'Azure'],
       icon: Bot,
-      githubUrl: 'https://github.com/skunchoor/ad-genie',
+      githubUrl: 'https://github.com/skunchoor/airflow-custom-plugins',
       gradient: 'from-[#9D00FF]/20 to-transparent',
-      category: 'personal'
+      category: 'hackathon'
     },
     {
       id: 'devops-monitor',
@@ -45,7 +45,7 @@ export default function Projects() {
       icon: Eye,
       githubUrl: 'https://github.com/skunchoor/retail-lens',
       gradient: 'from-blue-500/20 to-transparent',
-      category: 'personal'
+      category: 'hackathon'
     },
     {
       id: 'edge-compliance',
@@ -66,7 +66,17 @@ export default function Projects() {
       githubUrl: 'https://github.com/sunilkunchoor',
       gradient: 'from-yellow-500/20 to-transparent',
       category: 'hackathon'
-    }
+    },
+    {
+      id: 'adgenie',
+      title: '🧞 AdGenie LLMOps',
+      description: 'LLM Lifecycle Management with "Prompts as Code". End-to-end LLM pipeline with automated evaluation loops — GPT-4 acts as a judge to score prompt quality, enabling data-driven prompt engineering at scale with full MLflow lineage tracking.',
+      tech: ['LangChain', 'MLflow', 'OpenAI', 'Azure', 'Python'],
+      icon: Bot,
+      githubUrl: 'https://github.com/skunchoor/ad-genie',
+      gradient: 'from-[#9D00FF]/20 to-transparent',
+      category: 'hackathon'
+    },
   ];
 
   const filteredProjects = projects.filter(
@@ -81,17 +91,16 @@ export default function Projects() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured <span className="text-gradient-blue">Projects</span></h2>
             <p className="text-slate-400 max-w-xl">Deep engineering dive into automated governance, LLMOps, telemetry, and edge intelligence.</p>
           </div>
-          
+
           <div className="flex bg-white/5 p-1 rounded-xl border border-white/10 self-start md:self-auto">
             {(['all', 'personal', 'hackathon'] as const).map((tab) => (
-              <button 
+              <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
-                  activeTab === tab 
-                    ? 'bg-primary text-slate-950 shadow-[0_0_10px_rgba(125,249,255,0.5)] font-bold' 
-                    : 'text-slate-400 hover:text-white'
-                }`}
+                className={`px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${activeTab === tab
+                  ? 'bg-primary text-slate-950 shadow-[0_0_10px_rgba(125,249,255,0.5)] font-bold'
+                  : 'text-slate-400 hover:text-white'
+                  }`}
               >
                 {tab === 'all' ? 'All' : tab === 'personal' ? 'Personal' : 'Hackathons'}
               </button>
@@ -101,12 +110,12 @@ export default function Projects() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {filteredProjects.map((project) => (
-            <div 
+            <div
               key={project.id}
               className="glass-card rounded-2xl p-8 flex flex-col relative overflow-hidden group hover:bg-white/[0.08] transition-all duration-500 min-h-[380px] animate-in fade-in zoom-in duration-300"
             >
               <div className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-br ${project.gradient} -z-10 blur-3xl rounded-full transition-transform duration-700 group-hover:scale-125`}></div>
-              
+
               <div className="flex items-start justify-between mb-8">
                 <div className="p-3 bg-white/5 rounded-xl border border-white/10">
                   <project.icon className="w-6 h-6 text-primary" />
@@ -138,9 +147,9 @@ export default function Projects() {
         </div>
 
         <div className="flex justify-center mt-16 animate-in fade-in duration-700">
-          <a 
-            href="https://github.com/sunilkunchoor" 
-            target="_blank" 
+          <a
+            href="https://github.com/sunilkunchoor"
+            target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center gap-3 px-8 py-4 bg-white/5 border border-white/10 rounded-2xl text-slate-300 font-bold hover:text-primary hover:border-primary/50 hover:bg-white/[0.08] transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.2)]"
           >
