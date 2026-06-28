@@ -1,6 +1,6 @@
 "use client";
 
-import { GraduationCap, Calendar, BookOpen, ExternalLink } from 'lucide-react';
+import { GraduationCap, Calendar, BookOpen, ExternalLink, Github } from 'lucide-react';
 
 export default function Education() {
   const education = [
@@ -9,14 +9,16 @@ export default function Education() {
       institution: "Nebius Academy",
       period: "2026",
       description: "Advanced fellowship program focusing on high-performance training, inference, and hardware-aware optimization for deep learning models.",
-      link: "https://www.credly.com/users/sunilkunchoor/badges/credly"
+      link: "https://www.credly.com/users/sunilkunchoor/badges/credly",
+      projectLink: "https://github.com/sunilkunchoor"
     },
     {
       degree: "Post Graduate Program – AI & ML",
       institution: "Great Learning (University of Texas, Austin)",
       period: "2021 – 2022",
       description: "Specialized training in Artificial Intelligence and Machine Learning, focusing on deep learning, computer vision, and NLP.",
-      link: "https://eportfolio.mygreatlearning.com/sunil-kunchoor-basavaraju"
+      link: "https://eportfolio.mygreatlearning.com/sunil-kunchoor-basavaraju",
+      projectLink: "https://github.com/sunilkunchoor"
     },
     {
       degree: "Master of Science (Mathematics)",
@@ -67,17 +69,30 @@ export default function Education() {
                 </p>
               </div>
 
-              {edu.link && (
-                <div className="mt-auto pt-4 border-t border-white/5">
-                  <a
-                    href={edu.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-white transition-colors group/link"
-                  >
-                    View Verification
-                    <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-                  </a>
+              {(edu.link || edu.projectLink) && (
+                <div className="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
+                  {edu.link ? (
+                    <a
+                      href={edu.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-white transition-colors group/link"
+                    >
+                      View Verification
+                      <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                    </a>
+                  ) : <div />}
+                  {edu.projectLink && (
+                    <a
+                      href={edu.projectLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors group/link"
+                    >
+                      <Github className="w-3.5 h-3.5" />
+                      View Projects
+                    </a>
+                  )}
                 </div>
               )}
             </div>
