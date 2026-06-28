@@ -49,7 +49,7 @@ export default function Projects() {
     },
     {
       id: 'edge-compliance',
-      title: '⚡ Edge Compliance Inspector and Load Testing',
+      title: '🧠 AI-Powered QSR — Edge Compliance & Benchmarking',
       description: 'A benchmarking study of small form factor hardware devices that manage AI workloads deployed at the edge.',
       tech: ['Intel OpenVINO', 'OpenCV', 'Python', 'Edge Hardware', 'AWS', 'ASR', 'NLP'],
       icon: Eye,
