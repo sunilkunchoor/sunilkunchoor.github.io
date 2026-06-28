@@ -10,7 +10,7 @@ export default function Education() {
       period: "2026",
       description: "Advanced fellowship program focusing on high-performance training, inference, and hardware-aware optimization for LLM models.",
       link: "https://www.credly.com/users/sunilkunchoor/badges/credly",
-      projectLink: "https://github.com/sunilkunchoor/https://github.com/sunilkunchoor/pgp-ai-mlp"
+      projectLink: "https://github.com/sunilkunchoor/ai-performance-engineering-fellowship"
     },
     {
       degree: "Post Graduate Program – AI & ML",
