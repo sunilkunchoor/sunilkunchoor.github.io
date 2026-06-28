@@ -23,14 +23,14 @@ export default function Education() {
       institution: "Bangalore University",
       period: "2012 – 2014",
       description: "Advanced mathematics degree providing the theoretical and statistical foundation for machine learning algorithms and data science.",
-      link: null
+      link: "/documents/master-degree-verification.pdf"
     },
     {
       degree: "Bachelor of Science (Stats, Math, CS)",
       institution: "Bangalore University",
       period: "2009 – 2012",
       description: "Undergraduate degree in Statistics, Mathematics, and Computer Science, establishing strong computational and statistical foundations.",
-      link: null
+      link: "/documents/bachelor-degree-verification.pdf"
     }
   ];
 
