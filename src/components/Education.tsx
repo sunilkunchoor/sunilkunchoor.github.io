@@ -8,9 +8,9 @@ export default function Education() {
       degree: "AI Performance Engineer Fellowship",
       institution: "Nebius Academy",
       period: "2026",
-      description: "Advanced fellowship program focusing on high-performance training, inference, and hardware-aware optimization for deep learning models.",
+      description: "Advanced fellowship program focusing on high-performance training, inference, and hardware-aware optimization for LLM models.",
       link: "https://www.credly.com/users/sunilkunchoor/badges/credly",
-      projectLink: "https://github.com/sunilkunchoor"
+      projectLink: "https://github.com/sunilkunchoor/https://github.com/sunilkunchoor/pgp-ai-mlp"
     },
     {
       degree: "Post Graduate Program – AI & ML",
@@ -18,7 +18,7 @@ export default function Education() {
       period: "2021 – 2022",
       description: "Specialized training in Artificial Intelligence and Machine Learning, focusing on deep learning, computer vision, and NLP.",
       link: "https://eportfolio.mygreatlearning.com/sunil-kunchoor-basavaraju",
-      projectLink: "https://github.com/sunilkunchoor"
+      projectLink: "https://github.com/sunilkunchoor/pgp-ai-ml"
     },
     {
       degree: "Master of Science (Mathematics)",
