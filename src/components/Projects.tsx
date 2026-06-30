@@ -41,7 +41,7 @@ export default function Projects() {
       id: 'retail-lens',
       title: '👁️ Retail-Lens',
       description: 'AI-Powered Smart Shelf Vision. Computer vision system that empowers store associates to instantly identify out-of-stock items, misplaced products, and incorrect price tags — reducing shelf compliance issues in real time.',
-      tech: ['Azure Vision', 'OpenCV', 'Docker', 'Python', 'Edge AI'],
+      tech: ['Google Lens', 'OpenCV', 'Docker', 'Python', 'Edge AI'],
       icon: Eye,
       githubUrl: 'https://github.com/skunchoor/retail-lens',
       gradient: 'from-blue-500/20 to-transparent',
