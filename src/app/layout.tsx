@@ -1,5 +1,6 @@
 import type {Metadata} from 'next';
 import Script from 'next/script';
+import Chatbot from '@/components/Chatbot';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -41,8 +42,9 @@ export default function RootLayout({
           </>
         )}
       </head>
-      <body className="font-body antialiased selection:bg-primary/20 bg-background text-foreground">
+      <body className="font-body antialiased selection:bg-primary/20 bg-background text-foreground animate-reveal">
         {children}
+        <Chatbot />
       </body>
     </html>
   );
