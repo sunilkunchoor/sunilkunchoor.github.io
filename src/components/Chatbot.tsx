@@ -48,20 +48,30 @@ export default function Chatbot() {
         }),
       });
 
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Server returned status ${response.status} - ${errorText.substring(0, 100)}`);
+      }
+
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error("Invalid response format. Expected JSON backend.");
+      }
+
       const data = await response.json();
       if (data.text) {
         setMessages((prev) => [...prev, { role: 'assistant', content: data.text }]);
       } else {
         setMessages((prev) => [
           ...prev,
-          { role: 'assistant', content: "Sorry, I encountered an error. Please try again." }
+          { role: 'assistant', content: data.error || "Sorry, I encountered an error. Please try again." }
         ]);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: "Network error. Please check your connection." }
+        { role: 'assistant', content: `Chat Error: ${error.message || "Network error. Please check your connection."}` }
       ]);
     } finally {
       setIsLoading(false);
