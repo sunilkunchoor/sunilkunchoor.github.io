@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Background from '@/components/Background';
+import Mermaid from '@/components/Mermaid';
 import { Calendar, ArrowLeft, Clock } from 'lucide-react';
 import { notFound } from 'next/navigation';
 
@@ -36,7 +37,7 @@ export default async function ArticlePage({ params }: PageProps) {
 
   const fileContent = fs.readFileSync(filePath, 'utf-8');
   const { data, content } = matter(fileContent);
-  
+
   // Calculate reading time (avg 200 words per minute)
   const wordCount = content.trim().split(/\s+/).length;
   const readingTime = Math.ceil(wordCount / 200);
@@ -48,11 +49,12 @@ export default async function ArticlePage({ params }: PageProps) {
     <main className="relative min-h-screen">
       <Background />
       <Navbar />
+      <Mermaid />
 
       <div className="relative z-10 pt-32 pb-24">
         <div className="container mx-auto px-6 max-w-3xl">
           {/* Back button */}
-          <Link 
+          <Link
             href="/articles"
             className="inline-flex items-center text-sm font-semibold text-slate-400 hover:text-white transition-colors mb-12 group"
           >
@@ -65,7 +67,7 @@ export default async function ArticlePage({ params }: PageProps) {
             <h1 className="font-headline font-bold text-3xl md:text-5xl text-white mb-6 leading-tight">
               {data.title || slug}
             </h1>
-            
+
             <div className="flex flex-wrap items-center gap-6 text-sm text-slate-400">
               {data.date && (
                 <span className="flex items-center gap-1.5">
@@ -92,7 +94,7 @@ export default async function ArticlePage({ params }: PageProps) {
             {data.tags && (
               <div className="flex flex-wrap gap-2 mt-6">
                 {data.tags.map((tag: string) => (
-                  <span 
+                  <span
                     key={tag}
                     className="text-[10px] uppercase tracking-wider font-semibold px-2.5 py-1 bg-white/5 text-slate-300 rounded-full border border-white/5"
                   >
@@ -104,7 +106,7 @@ export default async function ArticlePage({ params }: PageProps) {
           </header>
 
           {/* Article Content */}
-          <div 
+          <div
             className="prose-custom"
             dangerouslySetInnerHTML={{ __html: htmlContent }}
           />
