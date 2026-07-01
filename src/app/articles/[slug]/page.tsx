@@ -43,7 +43,7 @@ export default async function ArticlePage({ params }: PageProps) {
   const readingTime = Math.ceil(wordCount / 200);
 
   // Convert markdown to HTML
-  const htmlContent = marked.parse(content);
+  const htmlContent = await marked.parse(content);
 
   return (
     <main className="relative min-h-screen">
