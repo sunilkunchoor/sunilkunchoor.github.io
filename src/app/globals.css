@@ -79,3 +79,57 @@
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+/* Custom Markdown Typography */
+.prose-custom {
+  @apply text-slate-300 leading-relaxed text-base;
+}
+.prose-custom p {
+  @apply mb-6;
+}
+.prose-custom h1 {
+  @apply text-3xl font-bold text-white mt-12 mb-6 font-headline tracking-tight;
+}
+.prose-custom h2 {
+  @apply text-2xl font-bold text-white mt-10 mb-4 border-b border-white/5 pb-2 font-headline tracking-tight;
+}
+.prose-custom h3 {
+  @apply text-xl font-bold text-white mt-8 mb-3 font-headline tracking-tight;
+}
+.prose-custom ul {
+  @apply list-disc list-inside mb-6 pl-4 space-y-2;
+}
+.prose-custom ol {
+  @apply list-decimal list-inside mb-6 pl-4 space-y-2;
+}
+.prose-custom li {
+  @apply text-slate-300;
+}
+.prose-custom blockquote {
+  @apply border-l-4 border-primary bg-white/5 px-6 py-4 rounded-r-lg italic my-6 text-slate-300;
+}
+.prose-custom code {
+  @apply bg-white/10 text-primary px-1.5 py-0.5 rounded text-sm font-mono font-medium;
+}
+.prose-custom pre {
+  @apply bg-slate-950 border border-white/10 p-5 rounded-xl my-6 overflow-x-auto;
+}
+.prose-custom pre code {
+  @apply bg-transparent text-slate-300 p-0 rounded-none text-xs font-mono leading-relaxed block;
+}
+.prose-custom table {
+  @apply w-full border-collapse my-6 text-sm text-left;
+}
+.prose-custom th {
+  @apply border-b border-white/10 py-3 font-bold text-white;
+}
+.prose-custom td {
+  @apply border-b border-white/5 py-3 text-slate-400;
+}
+.prose-custom a {
+  @apply text-primary hover:text-primary/80 underline underline-offset-4 transition-colors;
+}
+.prose-custom hr {
+  @apply border-t border-white/10 my-10;
+}
+

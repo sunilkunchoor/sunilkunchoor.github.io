@@ -16,12 +16,13 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Education', href: '#education' },
-    { name: 'Certifications', href: '#certifications' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Philosophy', href: '#philosophy' },
+    { name: 'About', href: '/#about' },
+    { name: 'Experience', href: '/#experience' },
+    { name: 'Education', href: '/#education' },
+    { name: 'Certifications', href: '/#certifications' },
+    { name: 'Projects', href: '/#projects' },
+    { name: 'Philosophy', href: '/#philosophy' },
+    { name: 'Articles', href: '/articles' },
   ];
 
   return (

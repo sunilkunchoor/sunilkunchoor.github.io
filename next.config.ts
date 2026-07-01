@@ -1,14 +1,15 @@
-import type {NextConfig} from 'next';
+import type { NextConfig } from 'next';
 
 const isGithubPages = process.env.GITHUB_ACTIONS === 'true';
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 const nextConfig: NextConfig = {
   /* config options here */
   output: isGithubPages ? 'export' : undefined,
-  
+
   // Redirect Vercel visitors to the main GitHub Pages site, leaving /api/chat active
   async redirects() {
-    if (isGithubPages) return [];
+    if (isGithubPages || isDevelopment) return [];
     return [
       {
         source: '/((?!api/chat).*)',
