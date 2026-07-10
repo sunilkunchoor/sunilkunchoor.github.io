@@ -16,28 +16,21 @@ interface ArticleMeta {
 }
 
 export default async function ArticlesPage() {
-  const articlesDir = path.join(process.cwd(), 'content/articles');
+  const configPath = path.join(process.cwd(), 'content/articles.json');
   
   let articles: ArticleMeta[] = [];
-  if (fs.existsSync(articlesDir)) {
-    const files = fs.readdirSync(articlesDir);
-    articles = files
-      .filter((file) => file.endsWith('.md'))
-      .map((file) => {
-        const slug = file.replace('.md', '');
-        const filePath = path.join(articlesDir, file);
-        const fileContent = fs.readFileSync(filePath, 'utf-8');
-        const { data } = matter(fileContent);
-        
-        return {
-          slug,
-          title: data.title || slug,
-          date: data.date || '',
-          summary: data.summary || '',
-          tags: data.tags || [],
-        };
-      })
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  if (fs.existsSync(configPath)) {
+    const rawData = fs.readFileSync(configPath, 'utf-8');
+    const articlesConfig = JSON.parse(rawData);
+    articles = articlesConfig
+      .map((article: any) => ({
+        slug: article.slug,
+        title: article.title,
+        date: article.date,
+        summary: article.summary,
+        tags: article.tags || [],
+      }))
+      .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }
 
   return (

@@ -43,3 +43,9 @@ next-env.d.ts
 # firebase
 firebase-debug.log
 firestore-debug.log
+
+# Dynamically synced articles
+content/articles/edge-compliance.md
+content/articles/skywalker-qa.md
+content/articles/pgp-ai-ml.md
+content/articles/pgp-ai-ml/
