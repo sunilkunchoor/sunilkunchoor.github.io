@@ -323,7 +323,7 @@
         ]
       },
       {
-        "title": "Getting Started",
+        "title": "Project Setup and Tooling",
         "path": "docs/03-project-setup-and-tooling/README.md",
         "slug": [
           "03-project-setup-and-tooling"
