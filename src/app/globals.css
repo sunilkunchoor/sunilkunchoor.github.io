@@ -132,4 +132,11 @@
 .prose-custom hr {
   @apply border-t border-white/10 my-10;
 }
+.prose-custom img {
+  display: inline-block !important;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
 

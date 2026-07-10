@@ -7,7 +7,7 @@ export default function Education() {
     {
       degree: "AI Performance Engineer Fellowship",
       institution: "Nebius Academy",
-      period: "2026",
+      period: "2026 (In Progress)",
       description: "Advanced fellowship program focusing on high-performance training, inference, and hardware-aware optimization for LLM models.",
       link: "https://www.credly.com/users/sunilkunchoor/badges/credly",
       projectLink: "https://github.com/sunilkunchoor/ai-performance-engineering-fellowship"
