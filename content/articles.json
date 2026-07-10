@@ -197,6 +197,13 @@
     "mainPath": "docs/README.md",
     "subPages": [
       {
+        "title": "Getting Started",
+        "path": "docs/01-getting-started/README.md",
+        "slug": [
+          "01-getting-started"
+        ]
+      },
+      {
         "title": "What is Rust?",
         "path": "docs/01-getting-started/what-is-rust.md",
         "slug": [
@@ -226,6 +233,13 @@
         "slug": [
           "01-getting-started",
           "ide-setup"
+        ]
+      },
+      {
+        "title": "Rust Language Fundamentals",
+        "path": "docs/02-rust-language-fundamentals/README.md",
+        "slug": [
+          "02-rust-language-fundamentals"
         ]
       },
       {
@@ -309,6 +323,13 @@
         ]
       },
       {
+        "title": "Getting Started",
+        "path": "docs/03-project-setup-and-tooling/README.md",
+        "slug": [
+          "03-project-setup-and-tooling"
+        ]
+      },
+      {
         "title": "Cargo In Depth",
         "path": "docs/03-project-setup-and-tooling/cargo-in-depth.md",
         "slug": [
@@ -338,6 +359,13 @@
         "slug": [
           "03-project-setup-and-tooling",
           "daily-workflow"
+        ]
+      },
+      {
+        "title": "PyO3 and Logferry",
+        "path": "docs/04-pyo3-and-logferry/README.md",
+        "slug": [
+          "04-pyo3-and-logferry"
         ]
       },
       {
@@ -402,6 +430,13 @@
         "slug": [
           "05-reference",
           "cargo-cheatsheet"
+        ]
+      },
+      {
+        "title": "Reference",
+        "path": "docs/05-reference/README.md",
+        "slug": [
+          "05-reference"
         ]
       },
       {

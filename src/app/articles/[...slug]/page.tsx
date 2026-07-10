@@ -147,7 +147,17 @@ export default async function ArticlePage({ params }: PageProps) {
   // Group sub-pages by category (first element of slug if length > 1)
   const groupedSubPages: { [key: string]: any[] } = {};
   const ungroupedSubPages: any[] = [];
+  const groupIndexPages: { [key: string]: any } = {};
 
+  // First, find all group keys from sub-pages that have depth > 1
+  const groupKeys = new Set<string>();
+  subPages.forEach((sub: any) => {
+    if (sub.slug.length > 1) {
+      groupKeys.add(sub.slug[0]);
+    }
+  });
+
+  // Now partition the subPages
   subPages.forEach((sub: any) => {
     if (sub.slug.length > 1) {
       const groupKey = sub.slug[0];
@@ -155,6 +165,9 @@ export default async function ArticlePage({ params }: PageProps) {
         groupedSubPages[groupKey] = [];
       }
       groupedSubPages[groupKey].push(sub);
+    } else if (sub.slug.length === 1 && groupKeys.has(sub.slug[0])) {
+      // Index page for this group!
+      groupIndexPages[sub.slug[0]] = sub;
     } else {
       ungroupedSubPages.push(sub);
     }
@@ -241,12 +254,33 @@ export default async function ArticlePage({ params }: PageProps) {
                   })}
 
                   {/* Grouped Sub-pages */}
-                  {sortedGroupKeys.map((groupKey) => (
-                    <div key={groupKey} className="space-y-1.5 pt-2">
-                      <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block px-3 mb-1">
-                        {formatGroupName(groupKey)}
-                      </span>
-                      <div className="space-y-1">
+                  {sortedGroupKeys.map((groupKey) => {
+                    const indexPage = groupIndexPages[groupKey];
+                    const groupHref = `/articles/${mainSlug}/${groupKey}`;
+                    const groupFilePath = path.join(process.cwd(), 'content/articles', mainSlug, `${groupKey}.md`);
+                    const hasIndexPage = indexPage || fs.existsSync(groupFilePath);
+                    const groupTitle = indexPage ? indexPage.title : formatGroupName(groupKey);
+                    const isGroupActive = isSubPage && slug.slice(1).join('/') === groupKey;
+
+                    return (
+                      <div key={groupKey} className="space-y-1.5 pt-2">
+                        {hasIndexPage ? (
+                          <Link 
+                            href={groupHref}
+                            className={`text-[10px] uppercase tracking-wider font-bold block px-3 mb-1.5 transition-colors ${
+                              isGroupActive 
+                                ? 'text-primary shadow-[0_0_10px_rgba(125,249,255,0.05)]' 
+                                : 'text-slate-500 hover:text-white'
+                            }`}
+                          >
+                            {groupTitle}
+                          </Link>
+                        ) : (
+                          <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block px-3 mb-1">
+                            {groupTitle}
+                          </span>
+                        )}
+                        <div className="space-y-1">
                         {groupedSubPages[groupKey].map((sub: any) => {
                           const subSlugPath = sub.slug.join('/');
                           const subHref = `/articles/${mainSlug}/${subSlugPath}`;
@@ -269,7 +303,8 @@ export default async function ArticlePage({ params }: PageProps) {
                         })}
                       </div>
                     </div>
-                  ))}
+                  );
+                })}
                 </nav>
               </aside>
             )}
