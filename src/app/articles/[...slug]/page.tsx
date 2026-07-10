@@ -66,8 +66,10 @@ export default async function ArticlePage({ params }: PageProps) {
   const wordCount = content.trim().split(/\s+/).length;
   const readingTime = Math.ceil(wordCount / 200);
 
-  // Convert markdown to HTML with auto-generated heading IDs for table of contents
+  // Convert markdown to HTML with custom renderer
   const renderer = new marked.Renderer();
+  
+  // Custom heading renderer to generate IDs for table of contents
   renderer.heading = function (text: string, level: number, raw: string) {
     const id = raw
       .toLowerCase()
@@ -76,6 +78,51 @@ export default async function ArticlePage({ params }: PageProps) {
       .replace(/[\s_]+/g, '-')
       .replace(/-+/g, '-');
     return `<h${level} id="${id}">${text}</h${level}>\n`;
+  };
+
+  // Custom link renderer to rewrite relative Markdown hyperlinks to slug paths
+  renderer.link = function (href: string, title: string | null | undefined, text: string) {
+    if (!href) {
+      return `<a href="${href}"${title ? ` title="${title}"` : ''}>${text}</a>`;
+    }
+    
+    let resolvedHref = href;
+    // Check if relative link (not absolute, not an email, not anchor)
+    if (!href.startsWith('http://') && !href.startsWith('https://') && !href.startsWith('mailto:') && !href.startsWith('/') && !href.startsWith('#')) {
+      const hashIndex = href.indexOf('#');
+      const hash = hashIndex !== -1 ? href.substring(hashIndex) : '';
+      let pathOnly = hashIndex !== -1 ? href.substring(0, hashIndex) : href;
+
+      // Strip .md extension
+      if (pathOnly.endsWith('.md')) {
+        pathOnly = pathOnly.slice(0, -3);
+      }
+      // Remove README.md or README
+      if (pathOnly === 'README' || pathOnly === 'README.md') {
+        pathOnly = '';
+      } else if (pathOnly.endsWith('/README')) {
+        pathOnly = pathOnly.slice(0, -7);
+      }
+
+      const baseDir = slug.length > 1 ? slug.slice(0, -1) : [slug[0]];
+      const hrefParts = pathOnly.split('/');
+      const resolvedParts = [...baseDir];
+
+      for (const part of hrefParts) {
+        if (part === '.' || part === '') {
+          continue;
+        }
+        if (part === '..') {
+          resolvedParts.pop();
+        } else {
+          resolvedParts.push(part);
+        }
+      }
+
+      resolvedHref = `/articles/${resolvedParts.join('/')}${hash}`;
+    }
+
+    return `<a href="${resolvedHref}"${title ? ` title="${title}"` : ''}>${text}</a>`;
   };
 
   const htmlContent = await marked.parse(content, { renderer });
@@ -97,6 +144,41 @@ export default async function ArticlePage({ params }: PageProps) {
   const isSubPage = slug.length > 1;
   const hasSidebar = subPages.length > 0;
 
+  // Group sub-pages by category (first element of slug if length > 1)
+  const groupedSubPages: { [key: string]: any[] } = {};
+  const ungroupedSubPages: any[] = [];
+
+  subPages.forEach((sub: any) => {
+    if (sub.slug.length > 1) {
+      const groupKey = sub.slug[0];
+      if (!groupedSubPages[groupKey]) {
+        groupedSubPages[groupKey] = [];
+      }
+      groupedSubPages[groupKey].push(sub);
+    } else {
+      ungroupedSubPages.push(sub);
+    }
+  });
+
+  const sortedGroupKeys = Object.keys(groupedSubPages).sort();
+
+  function formatGroupName(name: string) {
+    const match = name.match(/^(\d+)-(.*)$/);
+    if (match) {
+      const num = match[1];
+      const text = match[2];
+      const formattedText = text
+        .split('-')
+        .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+      return `${num} — ${formattedText}`;
+    }
+    return name
+      .split('-')
+      .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+
   return (
     <main className="relative min-h-screen">
       <Background />
@@ -110,7 +192,7 @@ export default async function ArticlePage({ params }: PageProps) {
             
             {/* Left Sidebar (Desktop Navigation) */}
             {hasSidebar && (
-              <aside className="lg:col-span-1 border-r border-white/5 pr-6 h-fit sticky top-28 hidden lg:block">
+              <aside className="lg:col-span-1 border-r border-white/5 pr-6 h-fit sticky top-28 hidden lg:block overflow-y-auto max-h-[calc(100vh-200px)] custom-scrollbar">
                 <div className="mb-6">
                   <span className="text-xs uppercase tracking-wider text-slate-500 font-bold block mb-1">
                     Course / Project
@@ -122,7 +204,7 @@ export default async function ArticlePage({ params }: PageProps) {
                   </Link>
                 </div>
 
-                <nav className="space-y-1">
+                <nav className="space-y-4">
                   {/* Introduction link */}
                   <Link 
                     href={`/articles/${mainSlug}`}
@@ -136,8 +218,8 @@ export default async function ArticlePage({ params }: PageProps) {
                     <span>Introduction</span>
                   </Link>
 
-                  {/* Sub-pages list */}
-                  {subPages.map((sub: any) => {
+                  {/* Ungrouped Sub-pages */}
+                  {ungroupedSubPages.map((sub: any) => {
                     const subSlugPath = sub.slug.join('/');
                     const subHref = `/articles/${mainSlug}/${subSlugPath}`;
                     const isActive = isSubPage && slug.slice(1).join('/') === subSlugPath;
@@ -157,6 +239,37 @@ export default async function ArticlePage({ params }: PageProps) {
                       </Link>
                     );
                   })}
+
+                  {/* Grouped Sub-pages */}
+                  {sortedGroupKeys.map((groupKey) => (
+                    <div key={groupKey} className="space-y-1.5 pt-2">
+                      <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block px-3 mb-1">
+                        {formatGroupName(groupKey)}
+                      </span>
+                      <div className="space-y-1">
+                        {groupedSubPages[groupKey].map((sub: any) => {
+                          const subSlugPath = sub.slug.join('/');
+                          const subHref = `/articles/${mainSlug}/${subSlugPath}`;
+                          const isActive = isSubPage && slug.slice(1).join('/') === subSlugPath;
+
+                          return (
+                            <Link 
+                              key={subSlugPath}
+                              href={subHref}
+                              className={`flex items-center space-x-2 px-3 py-1.5 rounded-lg text-[13px] font-medium transition-all ${
+                                isActive 
+                                  ? 'bg-primary/10 text-primary border border-primary/20 shadow-[0_0_15px_rgba(125,249,255,0.05)]' 
+                                  : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
+                              }`}
+                            >
+                              <ChevronRight className="w-3 h-3 flex-shrink-0 text-slate-600" />
+                              <span className="line-clamp-1">{sub.title}</span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
                 </nav>
               </aside>
             )}
