@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Cpu, Github, Linkedin, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname() || '';
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -38,17 +40,42 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.name} 
-              href={link.href}
-              className="text-sm font-medium text-slate-400 hover:text-white transition-colors"
-            >
-              {link.name}
-            </Link>
-          ))}
-          <div className="flex items-center space-x-4 border-l border-white/10 pl-8 ml-4">
+        <div className="hidden md:flex items-center space-x-6">
+          {navLinks.map((link) => {
+            const isArticles = link.name === 'Articles';
+            const isActive = isArticles && pathname.startsWith('/articles');
+
+            if (isArticles) {
+              return (
+                <Link 
+                  key={link.name} 
+                  href={link.href}
+                  className={`relative text-xs font-bold px-3.5 py-1.5 rounded-full border transition-all flex items-center gap-1.5 ${
+                    isActive 
+                      ? 'bg-primary/20 border-primary text-primary shadow-[0_0_15px_rgba(125,249,255,0.2)]'
+                      : 'bg-primary/5 hover:bg-primary/10 border-primary/20 text-primary hover:text-primary-hover shadow-[0_0_10px_rgba(125,249,255,0.05)]'
+                  }`}
+                >
+                  Articles
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                  </span>
+                </Link>
+              );
+            }
+
+            return (
+              <Link 
+                key={link.name} 
+                href={link.href}
+                className="text-sm font-medium text-slate-400 hover:text-white transition-colors"
+              >
+                {link.name}
+              </Link>
+            );
+          })}
+          <div className="flex items-center space-x-4 border-l border-white/10 pl-6 ml-2">
             <Link href="https://github.com/sunilkunchoor" target="_blank" className="text-slate-400 hover:text-white transition-colors">
               <Github className="w-5 h-5" />
             </Link>
@@ -76,16 +103,33 @@ export default function Navbar() {
       {isMobileMenuOpen && (
         <div className="md:hidden glass-nav absolute top-full left-0 right-0 border-t border-white/10 animate-in slide-in-from-top duration-300">
           <div className="flex flex-col p-6 space-y-4">
-            {navLinks.map((link) => (
-              <Link 
-                key={link.name} 
-                href={link.href}
-                className="text-lg font-medium text-slate-300"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link.name}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isArticles = link.name === 'Articles';
+              const isActive = isArticles && pathname.startsWith('/articles');
+
+              return (
+                <Link 
+                  key={link.name} 
+                  href={link.href}
+                  className={`text-lg font-medium transition-colors flex items-center justify-between ${
+                    isActive 
+                      ? 'text-primary' 
+                      : isArticles 
+                        ? 'text-primary/90' 
+                        : 'text-slate-300 hover:text-white'
+                  }`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <span>{link.name}</span>
+                  {isArticles && (
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
             <div className="pt-4 border-t border-white/10 flex flex-col space-y-4">
               <Button asChild variant="default" className="btn-primary w-full">
                 <a href="mailto:sunilkunchoor@gmail.com">
