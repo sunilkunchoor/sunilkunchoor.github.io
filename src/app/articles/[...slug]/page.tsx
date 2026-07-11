@@ -172,20 +172,19 @@ export default async function ArticlePage({ params }: PageProps) {
     
     let resolvedHref = href;
     if (isRemote && !href.startsWith('http://') && !href.startsWith('https://') && !href.startsWith('data:') && !href.startsWith('/')) {
-      // Resolve relative path against the remote file directory
-      const remoteDirParts = remoteFilePath.split('/').slice(0, -1);
-      
       const hrefParts = href.split('/');
-      const resolvedParts = [...remoteDirParts];
+      const filename = hrefParts[hrefParts.length - 1];
       
-      for (const part of hrefParts) {
-        if (part === '.' || part === '') {
-          continue;
-        }
-        if (part === '..') {
-          resolvedParts.pop();
+      let resolvedParts: string[] = [];
+      if (filename === 'overview.png') {
+        resolvedParts = ['docs', 'assets', 'overview.png'];
+      } else {
+        // Resolve to the specific chapter folder
+        const chapter = slug.length > 1 ? slug[1] : '';
+        if (chapter) {
+          resolvedParts = ['docs', chapter, 'assets', filename];
         } else {
-          resolvedParts.push(part);
+          resolvedParts = ['docs', 'assets', filename];
         }
       }
       
@@ -221,36 +220,24 @@ export default async function ArticlePage({ params }: PageProps) {
 
   const hasSidebar = subPages.length > 0;
 
-  // Group sub-pages by category (first element of slug if length > 1)
-  const groupedSubPages: { [key: string]: any[] } = {};
-  const ungroupedSubPages: any[] = [];
+  // Helpers for chronological sidebar group rendering
+  const isGroupParent = (groupKey: string) => {
+    return subPages.some((sub: any) => sub.slug.length > 1 && sub.slug[0] === groupKey);
+  };
+
+  const getGroupChildren = (groupKey: string) => {
+    return subPages.filter((sub: any) => sub.slug.length > 1 && sub.slug[0] === groupKey);
+  };
+
   const groupIndexPages: { [key: string]: any } = {};
-
-  // First, find all group keys from sub-pages that have depth > 1
-  const groupKeys = new Set<string>();
   subPages.forEach((sub: any) => {
-    if (sub.slug.length > 1) {
-      groupKeys.add(sub.slug[0]);
-    }
-  });
-
-  // Now partition the subPages
-  subPages.forEach((sub: any) => {
-    if (sub.slug.length > 1) {
-      const groupKey = sub.slug[0];
-      if (!groupedSubPages[groupKey]) {
-        groupedSubPages[groupKey] = [];
-      }
-      groupedSubPages[groupKey].push(sub);
-    } else if (sub.slug.length === 1 && groupKeys.has(sub.slug[0])) {
-      // Index page for this group!
+    if (sub.slug.length === 1 && isGroupParent(sub.slug[0])) {
       groupIndexPages[sub.slug[0]] = sub;
-    } else {
-      ungroupedSubPages.push(sub);
     }
   });
 
-  const sortedGroupKeys = Object.keys(groupedSubPages).sort();
+  const renderedGroups = new Set<string>();
+  const renderedSubPages = new Set<string>();
 
   function formatGroupName(name: string) {
     const match = name.match(/^(\d+)-(.*)$/);
@@ -308,11 +295,132 @@ export default async function ArticlePage({ params }: PageProps) {
                     <span>Introduction</span>
                   </Link>
 
-                  {/* Ungrouped Sub-pages */}
-                  {ungroupedSubPages.map((sub: any) => {
+                  {/* Chronological order-preserving render map */}
+                  {subPages.map((sub: any) => {
                     const subSlugPath = sub.slug.join('/');
+                    
+                    if (renderedSubPages.has(subSlugPath)) {
+                      return null;
+                    }
+
+                    const isGroup = sub.slug.length === 1 && isGroupParent(sub.slug[0]);
+                    
+                    if (isGroup) {
+                      const groupKey = sub.slug[0];
+                      renderedGroups.add(groupKey);
+                      
+                      const groupHref = `/articles/${mainSlug}/${groupKey}`;
+                      const isGroupActive = isSubPage && slug.slice(1).join('/') === groupKey;
+                      const children = getGroupChildren(groupKey);
+                      
+                      children.forEach((child: any) => {
+                        renderedSubPages.add(child.slug.join('/'));
+                      });
+
+                      return (
+                        <div key={groupKey} className="space-y-1.5 pt-2">
+                          <Link 
+                            href={groupHref}
+                            className={`text-[10px] uppercase tracking-wider font-bold block px-3 mb-1.5 transition-colors ${
+                              isGroupActive 
+                                ? 'text-primary shadow-[0_0_10px_rgba(125,249,255,0.05)]' 
+                                : 'text-slate-500 hover:text-white'
+                            }`}
+                          >
+                            {sub.title}
+                          </Link>
+                          <div className="space-y-1">
+                            {children.map((child: any) => {
+                              const childSlugPath = child.slug.join('/');
+                              const childHref = `/articles/${mainSlug}/${childSlugPath}`;
+                              const isChildActive = isSubPage && slug.slice(1).join('/') === childSlugPath;
+
+                              return (
+                                <Link 
+                                  key={childSlugPath}
+                                  href={childHref}
+                                  className={`flex items-center space-x-2 px-3 py-1.5 rounded-lg text-[13px] font-medium transition-all ${
+                                    isChildActive 
+                                      ? 'bg-primary/10 text-primary border border-primary/20 shadow-[0_0_15px_rgba(125,249,255,0.05)]' 
+                                      : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
+                                  }`}
+                                >
+                                  <ChevronRight className="w-3 h-3 flex-shrink-0 text-slate-600" />
+                                  <span className="line-clamp-1">{child.title}</span>
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    }
+
+                    if (sub.slug.length > 1) {
+                      const groupKey = sub.slug[0];
+                      if (!renderedGroups.has(groupKey)) {
+                        renderedGroups.add(groupKey);
+                        
+                        const children = getGroupChildren(groupKey);
+                        children.forEach((child: any) => {
+                          renderedSubPages.add(child.slug.join('/'));
+                        });
+                        
+                        const groupHref = `/articles/${mainSlug}/${groupKey}`;
+                        const groupFilePath = path.join(process.cwd(), 'content/articles', mainSlug, `${groupKey}.md`);
+                        const hasGroupFile = fs.existsSync(groupFilePath);
+                        const isGroupActive = isSubPage && slug.slice(1).join('/') === groupKey;
+                        const groupTitle = formatGroupName(groupKey);
+
+                        return (
+                          <div key={groupKey} className="space-y-1.5 pt-2">
+                            {hasGroupFile ? (
+                              <Link 
+                                href={groupHref}
+                                className={`text-[10px] uppercase tracking-wider font-bold block px-3 mb-1.5 transition-colors ${
+                                  isGroupActive 
+                                    ? 'text-primary shadow-[0_0_10px_rgba(125,249,255,0.05)]' 
+                                    : 'text-slate-500 hover:text-white'
+                                }`}
+                              >
+                                {groupTitle}
+                              </Link>
+                            ) : (
+                              <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block px-3 mb-1">
+                                {groupTitle}
+                              </span>
+                            )}
+                            <div className="space-y-1">
+                              {children.map((child: any) => {
+                                const childSlugPath = child.slug.join('/');
+                                const childHref = `/articles/${mainSlug}/${childSlugPath}`;
+                                const isChildActive = isSubPage && slug.slice(1).join('/') === childSlugPath;
+
+                                return (
+                                  <Link 
+                                    key={childSlugPath}
+                                    href={childHref}
+                                    className={`flex items-center space-x-2 px-3 py-1.5 rounded-lg text-[13px] font-medium transition-all ${
+                                      isChildActive 
+                                        ? 'bg-primary/10 text-primary border border-primary/20 shadow-[0_0_15px_rgba(125,249,255,0.05)]' 
+                                        : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
+                                    }`}
+                                  >
+                                    <ChevronRight className="w-3 h-3 flex-shrink-0 text-slate-600" />
+                                    <span className="line-clamp-1">{child.title}</span>
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        );
+                      }
+                      return null;
+                    }
+
+                    // Flat subpage link rendering
                     const subHref = `/articles/${mainSlug}/${subSlugPath}`;
                     const isActive = isSubPage && slug.slice(1).join('/') === subSlugPath;
+                    renderedSubPages.add(subSlugPath);
 
                     return (
                       <Link 
@@ -329,59 +437,6 @@ export default async function ArticlePage({ params }: PageProps) {
                       </Link>
                     );
                   })}
-
-                  {/* Grouped Sub-pages */}
-                  {sortedGroupKeys.map((groupKey) => {
-                    const indexPage = groupIndexPages[groupKey];
-                    const groupHref = `/articles/${mainSlug}/${groupKey}`;
-                    const groupFilePath = path.join(process.cwd(), 'content/articles', mainSlug, `${groupKey}.md`);
-                    const hasIndexPage = indexPage || fs.existsSync(groupFilePath);
-                    const groupTitle = indexPage ? indexPage.title : formatGroupName(groupKey);
-                    const isGroupActive = isSubPage && slug.slice(1).join('/') === groupKey;
-
-                    return (
-                      <div key={groupKey} className="space-y-1.5 pt-2">
-                        {hasIndexPage ? (
-                          <Link 
-                            href={groupHref}
-                            className={`text-[10px] uppercase tracking-wider font-bold block px-3 mb-1.5 transition-colors ${
-                              isGroupActive 
-                                ? 'text-primary shadow-[0_0_10px_rgba(125,249,255,0.05)]' 
-                                : 'text-slate-500 hover:text-white'
-                            }`}
-                          >
-                            {groupTitle}
-                          </Link>
-                        ) : (
-                          <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block px-3 mb-1">
-                            {groupTitle}
-                          </span>
-                        )}
-                        <div className="space-y-1">
-                        {groupedSubPages[groupKey].map((sub: any) => {
-                          const subSlugPath = sub.slug.join('/');
-                          const subHref = `/articles/${mainSlug}/${subSlugPath}`;
-                          const isActive = isSubPage && slug.slice(1).join('/') === subSlugPath;
-
-                          return (
-                            <Link 
-                              key={subSlugPath}
-                              href={subHref}
-                              className={`flex items-center space-x-2 px-3 py-1.5 rounded-lg text-[13px] font-medium transition-all ${
-                                isActive 
-                                  ? 'bg-primary/10 text-primary border border-primary/20 shadow-[0_0_15px_rgba(125,249,255,0.05)]' 
-                                  : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
-                              }`}
-                            >
-                              <ChevronRight className="w-3 h-3 flex-shrink-0 text-slate-600" />
-                              <span className="line-clamp-1">{sub.title}</span>
-                            </Link>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                })}
                 </nav>
               </aside>
             )}
