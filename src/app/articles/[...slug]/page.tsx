@@ -74,6 +74,39 @@ export default async function ArticlePage({ params }: PageProps) {
   const wordCount = content.trim().split(/\s+/).length;
   const readingTime = Math.ceil(wordCount / 200);
 
+  const isSubPage = slug.length > 1;
+
+  // Fetch specific article configuration to get the hierarchy and metadata for remote links/images
+  const articleConfigPath = path.join(process.cwd(), 'content/articles', `${mainSlug}.json`);
+  let subPages: any[] = [];
+  let mainTitle = '';
+  let isRemote = false;
+  let owner = '';
+  let repo = '';
+  let branch = 'main';
+  let remoteFilePath = '';
+
+  if (fs.existsSync(articleConfigPath)) {
+    const config = JSON.parse(fs.readFileSync(articleConfigPath, 'utf-8'));
+    subPages = config.subPages || [];
+    mainTitle = config.title;
+    if (config.type === 'remote') {
+      isRemote = true;
+      owner = config.owner;
+      repo = config.repo;
+      branch = config.branch || 'main';
+      if (!isSubPage) {
+        remoteFilePath = config.mainPath;
+      } else {
+        const subSlugPath = slug.slice(1).join('/');
+        const subPage = subPages.find((sub: any) => sub.slug.join('/') === subSlugPath);
+        if (subPage) {
+          remoteFilePath = subPage.path;
+        }
+      }
+    }
+  }
+
   // Convert markdown to HTML with custom renderer
   const renderer = new marked.Renderer();
   
@@ -133,6 +166,35 @@ export default async function ArticlePage({ params }: PageProps) {
     return `<a href="${resolvedHref}"${title ? ` title="${title}"` : ''}>${text}</a>`;
   };
 
+  // Custom image renderer to rewrite relative images to absolute GitHub raw URLs
+  renderer.image = function (href: string, title: string | null, text: string) {
+    if (!href) return '';
+    
+    let resolvedHref = href;
+    if (isRemote && !href.startsWith('http://') && !href.startsWith('https://') && !href.startsWith('data:') && !href.startsWith('/')) {
+      // Resolve relative path against the remote file directory
+      const remoteDirParts = remoteFilePath.split('/').slice(0, -1);
+      
+      const hrefParts = href.split('/');
+      const resolvedParts = [...remoteDirParts];
+      
+      for (const part of hrefParts) {
+        if (part === '.' || part === '') {
+          continue;
+        }
+        if (part === '..') {
+          resolvedParts.pop();
+        } else {
+          resolvedParts.push(part);
+        }
+      }
+      
+      resolvedHref = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${resolvedParts.join('/')}`;
+    }
+    
+    return `<img src="${resolvedHref}" alt="${text || ''}"${title ? ` title="${title}"` : ''} />`;
+  };
+
   // Custom code block renderer to highlight code with Prism based on language
   renderer.code = function (code: string, infostring: string | undefined, escaped: boolean) {
     const lang = (infostring || '').match(/^\S*/)?.[0] || 'text';
@@ -157,18 +219,6 @@ export default async function ArticlePage({ params }: PageProps) {
 
   const htmlContent = await marked.parse(content, { renderer });
 
-  // Fetch specific article configuration to get the hierarchy
-  const articleConfigPath = path.join(process.cwd(), 'content/articles', `${mainSlug}.json`);
-  let subPages: any[] = [];
-  let mainTitle = '';
-
-  if (fs.existsSync(articleConfigPath)) {
-    const config = JSON.parse(fs.readFileSync(articleConfigPath, 'utf-8'));
-    subPages = config.subPages || [];
-    mainTitle = config.title;
-  }
-
-  const isSubPage = slug.length > 1;
   const hasSidebar = subPages.length > 0;
 
   // Group sub-pages by category (first element of slug if length > 1)
