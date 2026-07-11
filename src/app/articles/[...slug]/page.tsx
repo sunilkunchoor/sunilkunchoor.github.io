@@ -112,12 +112,12 @@ export default async function ArticlePage({ params }: PageProps) {
         pathOnly = pathOnly.slice(0, -7);
       }
 
-      const baseDir = slug.length > 1 ? slug.slice(0, -1) : [slug[0]];
+      const baseDir = slug.length > 1 ? slug.slice(1, -1) : [];
       const hrefParts = pathOnly.split('/');
       const resolvedParts = [...baseDir];
 
       for (const part of hrefParts) {
-        if (part === '.' || part === '') {
+        if (part === '.' || part === '' || part === 'docs') {
           continue;
         }
         if (part === '..') {
@@ -127,7 +127,7 @@ export default async function ArticlePage({ params }: PageProps) {
         }
       }
 
-      resolvedHref = `/articles/${resolvedParts.join('/')}${hash}`;
+      resolvedHref = `/articles/${mainSlug}${resolvedParts.length > 0 ? '/' + resolvedParts.join('/') : ''}${hash}`;
     }
 
     return `<a href="${resolvedHref}"${title ? ` title="${title}"` : ''}>${text}</a>`;
