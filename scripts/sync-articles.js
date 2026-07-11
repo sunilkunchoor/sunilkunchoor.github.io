@@ -1,26 +1,31 @@
 const fs = require('fs');
 const path = require('path');
 
-const articlesJsonPath = path.join(__dirname, '../content/articles.json');
-const outputDir = path.join(__dirname, '../content/articles');
+const articlesDir = path.join(__dirname, '../content/articles');
 
 async function syncArticles() {
   try {
     console.log("Starting articles synchronization pipeline...");
 
-    if (!fs.existsSync(articlesJsonPath)) {
-      console.error("articles.json not found at:", articlesJsonPath);
-      process.exit(1);
-    }
-
-    const articlesConfig = JSON.parse(fs.readFileSync(articlesJsonPath, 'utf-8'));
-
     // Create base output directory if it doesn't exist
-    if (!fs.existsSync(outputDir)) {
-      fs.mkdirSync(outputDir, { recursive: true });
+    if (!fs.existsSync(articlesDir)) {
+      fs.mkdirSync(articlesDir, { recursive: true });
     }
 
-    for (const article of articlesConfig) {
+    // Read all JSON configuration files in the articles folder
+    const files = fs.readdirSync(articlesDir);
+    const jsonFiles = files.filter(file => file.endsWith('.json'));
+
+    if (jsonFiles.length === 0) {
+      console.log("No article JSON configurations found in content/articles.");
+      console.log("Sync pipeline completed successfully!");
+      return;
+    }
+
+    for (const jsonFile of jsonFiles) {
+      const configPath = path.join(articlesDir, jsonFile);
+      const article = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+
       console.log(`Processing article: ${article.title || article.slug}...`);
 
       if (article.type === 'local') {
@@ -62,13 +67,13 @@ author: "${author}"
 
 `;
 
-        const mainOutputFilePath = path.join(outputDir, `${slug}.md`);
+        const mainOutputFilePath = path.join(articlesDir, `${slug}.md`);
         fs.writeFileSync(mainOutputFilePath, frontmatter + rawContent.trim(), 'utf-8');
         console.log(`- Main article saved to: ${slug}.md`);
 
         // 2. Fetch sub pages if any
         if (subPages && subPages.length > 0) {
-          const subPagesDir = path.join(outputDir, slug);
+          const subPagesDir = path.join(articlesDir, slug);
           if (!fs.existsSync(subPagesDir)) {
             fs.mkdirSync(subPagesDir, { recursive: true });
           }

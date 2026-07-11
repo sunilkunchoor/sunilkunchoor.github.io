@@ -10,6 +10,14 @@ import Mermaid from '@/components/Mermaid';
 import { Calendar, ArrowLeft, Clock, BookOpen, ChevronRight } from 'lucide-react';
 import { notFound } from 'next/navigation';
 
+import Prism from 'prismjs';
+import 'prismjs/components/prism-python';
+import 'prismjs/components/prism-rust';
+import 'prismjs/components/prism-bash';
+import 'prismjs/components/prism-json';
+import 'prismjs/components/prism-yaml';
+import 'prismjs/themes/prism-tomorrow.css';
+
 interface PageProps {
   params: Promise<{
     slug: string[];
@@ -125,20 +133,39 @@ export default async function ArticlePage({ params }: PageProps) {
     return `<a href="${resolvedHref}"${title ? ` title="${title}"` : ''}>${text}</a>`;
   };
 
+  // Custom code block renderer to highlight code with Prism based on language
+  renderer.code = function (code: string, infostring: string | undefined, escaped: boolean) {
+    const lang = (infostring || '').match(/^\S*/)?.[0] || 'text';
+    
+    let highlightedCode = code;
+    if (Prism.languages[lang]) {
+      try {
+        highlightedCode = Prism.highlight(code, Prism.languages[lang], lang);
+      } catch (err) {
+        console.error(`Prism failed to highlight language ${lang}:`, err);
+      }
+    } else {
+      // Escape HTML for plain/unrecognized code blocks
+      highlightedCode = code
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+    
+    return `<pre class="language-${lang}"><code class="language-${lang}">${highlightedCode}</code></pre>\n`;
+  };
+
   const htmlContent = await marked.parse(content, { renderer });
 
-  // Fetch articles.json configuration to get the hierarchy
-  const articlesConfigPath = path.join(process.cwd(), 'content/articles.json');
+  // Fetch specific article configuration to get the hierarchy
+  const articleConfigPath = path.join(process.cwd(), 'content/articles', `${mainSlug}.json`);
   let subPages: any[] = [];
   let mainTitle = '';
 
-  if (fs.existsSync(articlesConfigPath)) {
-    const articlesConfig = JSON.parse(fs.readFileSync(articlesConfigPath, 'utf-8'));
-    const config = articlesConfig.find((a: any) => a.slug === mainSlug);
-    if (config) {
-      subPages = config.subPages || [];
-      mainTitle = config.title;
-    }
+  if (fs.existsSync(articleConfigPath)) {
+    const config = JSON.parse(fs.readFileSync(articleConfigPath, 'utf-8'));
+    subPages = config.subPages || [];
+    mainTitle = config.title;
   }
 
   const isSubPage = slug.length > 1;
