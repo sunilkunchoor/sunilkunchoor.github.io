@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { Github, Bot, Eye, Radio, Activity } from 'lucide-react';
+import { Github, Bot, Eye, Radio, Activity, Sparkles } from 'lucide-react';
 
 export default function Projects() {
   const [activeTab, setActiveTab] = useState<'all' | 'personal' | 'hackathon' | 'work'>('all');
@@ -44,6 +44,7 @@ export default function Projects() {
       tech: ['Google Lens', 'OpenCV', 'Docker', 'Python', 'Edge AI'],
       icon: Eye,
       githubUrl: 'https://github.com/skunchoor/retail-lens',
+      playgroundUrl: 'https://skunchoor.github.io/retail-lens',
       gradient: 'from-blue-500/20 to-transparent',
       category: 'hackathon'
     },
@@ -84,6 +85,7 @@ export default function Projects() {
       tech: ['LangChain', 'MLflow', 'OpenAI', 'Azure', 'Python'],
       icon: Bot,
       githubUrl: 'https://github.com/skunchoor/ad-genie',
+      playgroundUrl: 'https://skunchoor.github.io/ad-genie',
       gradient: 'from-[#9D00FF]/20 to-transparent',
       category: 'hackathon'
     },
@@ -130,10 +132,29 @@ export default function Projects() {
                 <div className="p-3 bg-white/5 rounded-xl border border-white/10">
                   <project.icon className="w-6 h-6 text-primary" />
                 </div>
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="p-2 bg-white/5 rounded-full hover:bg-primary/20 hover:text-primary transition-all inline-block">
-                    <Github className="w-5 h-5 text-slate-400 hover:text-white cursor-pointer" />
-                  </a>
+                <div className="opacity-70 group-hover:opacity-100 transition-opacity flex items-center space-x-2">
+                  {project.playgroundUrl && (
+                    <a 
+                      href={project.playgroundUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="p-2 bg-primary/10 border border-primary/20 rounded-full hover:bg-primary/20 hover:text-primary transition-all inline-block shadow-[0_0_10px_rgba(125,249,255,0.1)]"
+                      title="AI Playground"
+                    >
+                      <Sparkles className="w-5 h-5 text-primary" />
+                    </a>
+                  )}
+                  {project.githubUrl && (
+                    <a 
+                      href={project.githubUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="p-2 bg-white/5 border border-white/10 rounded-full hover:bg-primary/20 hover:text-primary transition-all inline-block"
+                      title="GitHub Repository"
+                    >
+                      <Github className="w-5 h-5 text-slate-400 hover:text-white cursor-pointer" />
+                    </a>
+                  )}
                 </div>
               </div>
 

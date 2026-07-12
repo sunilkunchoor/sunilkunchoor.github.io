@@ -21,12 +21,21 @@ export default function Hero() {
           Bridging the gap between Data Science innovation and Production reliability. Deployed on Azure, Databricks, and Edge AI. Focused on LLMOps, Model Governance, and Cost Optimization.
         </p>
         
-        <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300">
           <Button asChild className="btn-primary h-12 px-8">
             <Link href="#projects">
               View Projects
               <ArrowRight className="ml-2 w-4 h-4" />
             </Link>
+          </Button>
+          <Button asChild variant="outline" className="h-12 px-8 border-primary/50 text-primary hover:bg-primary/10 shadow-[0_0_20px_rgba(125,249,255,0.08)] hover:shadow-[0_0_25px_rgba(125,249,255,0.25)] transition-all duration-300 flex items-center justify-center gap-2 font-bold bg-slate-950/30">
+            <a href="https://skunchoor.github.io/" target="_blank" rel="noopener noreferrer">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+              AI Playground
+            </a>
           </Button>
           <Button asChild className="btn-secondary h-12 px-8">
             <a href="mailto:sunilkunchoor@gmail.com">

@@ -82,6 +82,15 @@ export default function Navbar() {
             <Link href="https://www.linkedin.com/in/sunilkunchoor" target="_blank" className="text-slate-400 hover:text-white transition-colors">
               <Linkedin className="w-5 h-5" />
             </Link>
+            <Button asChild variant="outline" className="border-primary/50 text-primary hover:bg-primary/10 shadow-[0_0_15px_rgba(125,249,255,0.1)] hover:shadow-[0_0_20px_rgba(125,249,255,0.25)] transition-all duration-300 bg-slate-950/30" size="sm">
+              <a href="https://skunchoor.github.io/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 font-bold">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary"></span>
+                </span>
+                AI Playground
+              </a>
+            </Button>
             <Button asChild variant="default" className="btn-primary" size="sm">
               <a href="mailto:sunilkunchoor@gmail.com">
                 Contact Me
@@ -131,7 +140,16 @@ export default function Navbar() {
               );
             })}
             <div className="pt-4 border-t border-white/10 flex flex-col space-y-4">
-              <Button asChild variant="default" className="btn-primary w-full">
+              <Button asChild variant="outline" className="border-primary/50 text-primary hover:bg-primary/10 w-full" onClick={() => setIsMobileMenuOpen(false)}>
+                <a href="https://skunchoor.github.io/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 font-bold">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary"></span>
+                  </span>
+                  AI Playground
+                </a>
+              </Button>
+              <Button asChild variant="default" className="btn-primary w-full" onClick={() => setIsMobileMenuOpen(false)}>
                 <a href="mailto:sunilkunchoor@gmail.com">
                   Contact Me
                 </a>
