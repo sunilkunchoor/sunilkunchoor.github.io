@@ -37,7 +37,7 @@ export default function Mermaid() {
         const code = el.textContent;
         if (code) {
           const container = document.createElement('div');
-          container.className = 'mermaid-container flex justify-center';
+          container.className = 'mermaid mermaid-container flex justify-center';
           container.id = `mermaid-${index}`;
           container.textContent = code.trim();
           
