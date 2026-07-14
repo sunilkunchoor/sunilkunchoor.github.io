@@ -139,22 +139,18 @@
   height: auto;
 }
 
-/* Standalone diagram images / illustration panels */
+/* Standalone diagram images / illustration panels - blended with dark background */
 .prose-custom p > img:only-child {
   display: block !important;
   margin: 2.5rem auto;
-  border-radius: 12px;
-  background-color: rgba(255, 255, 255, 0.98);
-  padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 15px 40px -15px rgba(0, 0, 0, 0.6);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
+  /* Invert white background to black (transparent) & black text to white, preserving original hues */
+  filter: invert(1) hue-rotate(180deg);
+  mix-blend-mode: screen;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .prose-custom p > img:only-child:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 45px -10px rgba(125, 249, 255, 0.2);
-  border-color: rgba(125, 249, 255, 0.3);
+  transform: scale(1.02);
 }
 
 /* Custom Scrollbar for Articles Sidebar */
