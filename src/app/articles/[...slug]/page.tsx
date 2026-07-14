@@ -166,7 +166,7 @@ export default async function ArticlePage({ params }: PageProps) {
     return `<a href="${resolvedHref}"${title ? ` title="${title}"` : ''}>${text}</a>`;
   };
 
-  // Custom image renderer to rewrite relative images to absolute GitHub raw URLs
+  // Custom image renderer to rewrite relative images to local public WebP paths
   renderer.image = function (href: string, title: string | null, text: string) {
     if (!href) return '';
     
@@ -174,6 +174,8 @@ export default async function ArticlePage({ params }: PageProps) {
     if (isRemote && !href.startsWith('http://') && !href.startsWith('https://') && !href.startsWith('data:') && !href.startsWith('/')) {
       const hrefParts = href.split('/');
       const filename = hrefParts[hrefParts.length - 1];
+      const dotIdx = filename.lastIndexOf('.');
+      const ext = dotIdx !== -1 ? filename.substring(dotIdx).toLowerCase() : '';
       
       let resolvedParts: string[] = [];
       if (filename === 'overview.png') {
@@ -187,8 +189,14 @@ export default async function ArticlePage({ params }: PageProps) {
           resolvedParts = ['docs', 'assets', filename];
         }
       }
+
+      // Map PNG/JPG/GIF extensions to WebP
+      if (ext === '.png' || ext === '.jpg' || ext === '.jpeg' || ext === '.gif') {
+        const baseName = filename.substring(0, filename.length - ext.length);
+        resolvedParts[resolvedParts.length - 1] = `${baseName}.webp`;
+      }
       
-      resolvedHref = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${resolvedParts.join('/')}`;
+      resolvedHref = `/articles/${mainSlug}/${resolvedParts.join('/')}`;
     }
     
     return `<img src="${resolvedHref}" alt="${text || ''}"${title ? ` title="${title}"` : ''} />`;
