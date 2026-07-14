@@ -44,9 +44,9 @@ export default function Philosophy() {
           <p className="text-slate-400">Principles that guide my work in high-stakes AI production environments.</p>
         </div>
         
-        <div className="flex flex-wrap justify-center gap-8">
+        <div className="flex flex-wrap justify-center items-stretch gap-8">
           {cards.map((card, i) => (
-            <div key={i} className="glass-card p-8 rounded-2xl group border-transparent hover:border-white/10 transition-all duration-300 flex flex-col h-full w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1.5rem)] xl:w-[calc(20%-1.6rem)] max-w-sm">
+            <div key={i} className="glass-card p-8 rounded-2xl group border-transparent hover:border-white/10 transition-all duration-300 flex flex-col w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1.5rem)] xl:w-[calc(20%-1.6rem)] max-w-sm">
               <div className={`p-4 rounded-full bg-white/5 w-fit mb-8 group-hover:scale-110 transition-transform ${card.color}`}>
                 <card.icon className="w-8 h-8" />
               </div>
