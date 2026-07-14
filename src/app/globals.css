@@ -150,6 +150,53 @@
 .prose-custom blockquote p::after {
   content: "" !important;
 }
+
+/* Premium developer terminal styling for code blocks and ASCII drawings */
+.prose-custom pre {
+  position: relative;
+  padding: 3rem 1.25rem 1.25rem 1.25rem; /* Top padding leaves space for title bar */
+  background-color: rgba(15, 23, 42, 0.6) !important; /* Translucent slate background */
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px;
+  box-shadow: 0 15px 40px -15px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  font-family: 'Fira Code', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 0.85rem !important;
+  line-height: 1.6;
+  color: #e2e8f0 !important;
+  overflow-x: auto;
+  margin: 2.5rem 0;
+}
+
+/* Terminal header bar */
+.prose-custom pre::before {
+  content: "" !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2.2rem;
+  background-color: rgba(30, 41, 59, 0.45);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-top-left-radius: 11px;
+  border-top-right-radius: 11px;
+  display: block;
+}
+
+/* Red, yellow, and green window control dots */
+.prose-custom pre::after {
+  content: "" !important;
+  position: absolute;
+  top: 0.75rem;
+  left: 1.25rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ef4444;
+  box-shadow: 14px 0 0 #f59e0b, 28px 0 0 #10b981;
+  opacity: 0.8;
+  display: block;
+}
 .prose-custom img {
   display: inline-block;
   vertical-align: middle;
