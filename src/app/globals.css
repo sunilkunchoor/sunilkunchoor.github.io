@@ -133,11 +133,28 @@
   @apply border-t border-white/10 my-10;
 }
 .prose-custom img {
-  display: inline-block !important;
+  display: inline-block;
   vertical-align: middle;
-  margin-right: 0.5rem;
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Standalone diagram images / illustration panels */
+.prose-custom p > img:only-child {
+  display: block !important;
+  margin: 2.5rem auto;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.98);
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 15px 40px -15px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
+}
+
+.prose-custom p > img:only-child:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 45px -10px rgba(125, 249, 255, 0.2);
+  border-color: rgba(125, 249, 255, 0.3);
 }
 
 /* Custom Scrollbar for Articles Sidebar */
