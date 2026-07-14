@@ -139,8 +139,9 @@
   height: auto;
 }
 
-/* Standalone diagram container card */
-.prose-custom p:has(> img:only-child) {
+/* Standalone diagram container card & Mermaid diagram card */
+.prose-custom p:has(> img:only-child),
+.mermaid-container {
   display: block;
   margin: 2.5rem auto;
   border-radius: 12px;
@@ -152,7 +153,8 @@
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
 }
 
-.prose-custom p:has(> img:only-child):hover {
+.prose-custom p:has(> img:only-child):hover,
+.mermaid-container:hover {
   transform: translateY(-4px);
   box-shadow: 0 20px 45px -10px rgba(125, 249, 255, 0.2);
   border-color: rgba(125, 249, 255, 0.3);
