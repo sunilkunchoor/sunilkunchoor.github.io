@@ -109,6 +109,10 @@ Safety & Security Guardrails:
       parts: [{ text: msg.content }]
     }));
 
+    // Log the request details
+    const startTime = Date.now();
+    console.log(`[Chatbot API] [Request] Prompt: "${lastMessage}" | History length: ${contents.length}`);
+
     // Call the Gemini API via native fetch
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`,
@@ -121,18 +125,24 @@ Safety & Security Guardrails:
           contents: contents,
           systemInstruction: {
             parts: [{ text: systemInstruction }]
-          }
+          },
+          store: true // Enable logging and traces in Google AI Studio Logs & Datasets
         }),
       }
     );
 
+    const duration = Date.now() - startTime;
+
     if (!response.ok) {
       const errorText = await response.text();
+      console.error(`[Chatbot API] [Error] Status: ${response.status} | Duration: ${duration}ms | Error: ${errorText}`);
       throw new Error(`Gemini API error: ${response.status} - ${errorText}`);
     }
 
     const data = await response.json();
     const text = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response generated.';
+
+    console.log(`[Chatbot API] [Response] Duration: ${duration}ms | Status: 200 | Generated Text: "${text.substring(0, 100)}..."`);
 
     const res = NextResponse.json({ text });
     res.headers.set('Access-Control-Allow-Origin', 'https://sunilkunchoor.github.io');
