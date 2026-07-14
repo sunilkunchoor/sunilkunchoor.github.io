@@ -1,6 +1,3 @@
-# Firebase Studio
+# Senior MLOps & AI Platform Engineering Portfolio
 
-This is a NextJS starter in Firebase Studio.
-
-To get started, take a look at src/app/page.tsx.
-
+A premium, production-grade Next.js portfolio website representing **Sunil Kunchoor Basavaraju**, a Senior MLOps & AI Platform Engineer. Deployed at [sunilkunchoor.github.io](https://sunilkunchoor.github.io/).
