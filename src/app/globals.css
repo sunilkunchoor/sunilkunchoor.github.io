@@ -132,6 +132,24 @@
 .prose-custom hr {
   @apply border-t border-white/10 my-10;
 }
+.prose-custom blockquote {
+  font-style: normal;
+  border-left: 3px solid #7df9ff;
+  background-color: rgba(125, 249, 255, 0.03);
+  padding: 1rem 1.5rem;
+  margin: 2rem 0;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  color: #cbd5e1;
+}
+.prose-custom blockquote p {
+  margin: 0 !important;
+  line-height: 1.6;
+}
+.prose-custom blockquote p::before,
+.prose-custom blockquote p::after {
+  content: "" !important;
+}
 .prose-custom img {
   display: inline-block;
   vertical-align: middle;
