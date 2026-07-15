@@ -18,47 +18,65 @@
     {
       "title": "Boxes and Arrows",
       "path": "docs/01-boxes-and-arrows.md",
-      "slug": ["boxes-and-arrows"]
+      "slug": [
+        "01-boxes-and-arrows"
+      ]
     },
     {
       "title": "Google Maps Analogy",
       "path": "docs/02-google-maps-analogy.md",
-      "slug": ["google-maps-analogy"]
+      "slug": [
+        "02-google-maps-analogy"
+      ]
     },
     {
       "title": "Level 1: System Context",
       "path": "docs/03-level-1-system-context.md",
-      "slug": ["level-1-system-context"]
+      "slug": [
+        "03-level-1-system-context"
+      ]
     },
     {
       "title": "Level 2: Container",
       "path": "docs/04-level-2-container.md",
-      "slug": ["level-2-container"]
+      "slug": [
+        "04-level-2-container"
+      ]
     },
     {
       "title": "Level 3: Component",
       "path": "docs/05-level-3-component.md",
-      "slug": ["level-3-component"]
+      "slug": [
+        "05-level-3-component"
+      ]
     },
     {
       "title": "Level 4: Code",
       "path": "docs/06-level-4-code.md",
-      "slug": ["level-4-code"]
+      "slug": [
+        "06-level-4-code"
+      ]
     },
     {
       "title": "Supporting Diagrams",
       "path": "docs/07-supporting-diagrams.md",
-      "slug": ["supporting-diagrams"]
+      "slug": [
+        "07-supporting-diagrams"
+      ]
     },
     {
       "title": "Tooling",
       "path": "docs/08-tooling.md",
-      "slug": ["tooling"]
+      "slug": [
+        "08-tooling"
+      ]
     },
     {
       "title": "Conclusion",
       "path": "docs/09-conclusion.md",
-      "slug": ["conclusion"]
+      "slug": [
+        "09-conclusion"
+      ]
     }
   ]
 }
