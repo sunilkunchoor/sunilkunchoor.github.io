@@ -29,16 +29,6 @@ export default function Projects() {
       category: 'personal'
     },
     {
-      id: 'devops-monitor',
-      title: '📡 Dynatrace DevOps Monitor',
-      description: 'Unified Observability for ML Pipelines. A lightweight telemetry bridge that instruments every stage of a GitHub Actions ML workflow — sending metrics, traces, and events to Dynatrace for full pipeline visibility without vendor lock-in boilerplate.',
-      tech: ['Python', 'GitHub Actions', 'Dynatrace', 'OpenTelemetry'],
-      icon: Activity,
-      githubUrl: 'https://github.com/skunchoor/dt-devops-monitor',
-      gradient: 'from-pink-500/20 to-transparent',
-      category: 'personal'
-    },
-    {
       id: 'retail-lens',
       title: '👁️ Retail-Lens',
       description: 'AI-Powered Smart Shelf Vision. Computer vision system that empowers store associates to instantly identify out-of-stock items, misplaced products, and incorrect price tags — reducing shelf compliance issues in real time.',
