@@ -9,10 +9,11 @@ export default function Projects() {
   const projects = [
     {
       id: 'traffic-light',
-      title: '🚦 MLOps Traffic Light',
-      description: 'Automated Model Governance as Code. A GitHub Actions "Gatekeeper" that enforces a quality gate on every PR — validating code quality, security posture (Snyk/Semgrep), and model performance regressions before a single line reaches production.',
+      title: '🚦 Traffic Light Governance',
+      description: 'Automated Model Governance as Code. A GitHub Actions "Gatekeeper" that enforces a quality gate on every PR — validating code quality, security posture, and model performance regressions before a single line reaches production.',
       tech: ['Python', 'GitHub Actions', 'PyTest', 'Snyk', 'Semgrep'],
       icon: Radio,
+      playgroundUrl: 'https://skunchoor.github.io/traffic-light-governance',
       githubUrl: 'https://github.com/skunchoor/traffic-light-governance',
       gradient: 'from-[#7DF9FF]/20 to-transparent',
       category: 'personal'
@@ -134,10 +135,10 @@ export default function Projects() {
                 </div>
                 <div className="opacity-70 group-hover:opacity-100 transition-opacity flex items-center space-x-2">
                   {project.playgroundUrl && (
-                    <a 
-                      href={project.playgroundUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
+                    <a
+                      href={project.playgroundUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="p-2 bg-primary/10 border border-primary/20 rounded-full hover:bg-primary/20 hover:text-primary transition-all inline-block shadow-[0_0_10px_rgba(125,249,255,0.1)]"
                       title="AI Playground"
                     >
@@ -145,10 +146,10 @@ export default function Projects() {
                     </a>
                   )}
                   {project.githubUrl && (
-                    <a 
-                      href={project.githubUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="p-2 bg-white/5 border border-white/10 rounded-full hover:bg-primary/20 hover:text-primary transition-all inline-block"
                       title="GitHub Repository"
                     >
