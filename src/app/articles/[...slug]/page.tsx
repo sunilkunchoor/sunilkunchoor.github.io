@@ -127,8 +127,24 @@ export default async function ArticlePage({ params }: PageProps) {
 
   // Custom link renderer to rewrite relative Markdown hyperlinks to slug paths
   renderer.link = function (href: string, title: string | null | undefined, text: string) {
+    let displayText = text;
+    const cleanText = text.replace(/<[^>]*>?/gm, '');
+    if (cleanText.endsWith('.md')) {
+      const matchedPage = subPages.find((sub: any) => sub.path && sub.path.endsWith(cleanText));
+      if (matchedPage && matchedPage.title) {
+        // If it was wrapped in code tags, preserve them but replace the text
+        if (text.startsWith('<code>') && text.endsWith('</code>')) {
+          displayText = `<code>${matchedPage.title}</code>`;
+        } else {
+          displayText = matchedPage.title;
+        }
+      } else {
+        displayText = text.replace(/\.md(<\/code>)?$/, '$1');
+      }
+    }
+
     if (!href) {
-      return `<a href="${href}"${title ? ` title="${title}"` : ''}>${text}</a>`;
+      return `<a href="${href}"${title ? ` title="${title}"` : ''}>${displayText}</a>`;
     }
     
     let resolvedHref = href;
@@ -167,7 +183,7 @@ export default async function ArticlePage({ params }: PageProps) {
       resolvedHref = `/articles/${mainSlug}${resolvedParts.length > 0 ? '/' + resolvedParts.join('/') : ''}${hash}`;
     }
 
-    return `<a href="${resolvedHref}"${title ? ` title="${title}"` : ''}>${text}</a>`;
+    return `<a href="${resolvedHref}"${title ? ` title="${title}"` : ''}>${displayText}</a>`;
   };
 
   // Custom image renderer to rewrite relative images to local public WebP paths
