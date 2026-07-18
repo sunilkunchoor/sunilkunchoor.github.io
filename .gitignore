@@ -59,6 +59,8 @@ content/articles/ai-system-architecture/
 content/articles/ai-system-architecture.md
 content/articles/c4-model/
 content/articles/c4-model.md
+content/articles/apache-spark.md
+content/articles/apache-spark/
 
 # Dynamically downloaded article images
 /public/articles/
