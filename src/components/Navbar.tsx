@@ -57,7 +57,7 @@ export default function Navbar() {
               <Linkedin className="w-5 h-5" />
             </Link>
             <Button asChild variant="outline" className="border-pink-500/50 text-pink-400 hover:bg-pink-500/10 shadow-[0_0_15px_rgba(236,72,153,0.1)] hover:shadow-[0_0_20px_rgba(236,72,153,0.25)] transition-all duration-300 bg-slate-950/30" size="sm">
-              <a href="https://sunilkunchoor.github.io/knowledge-hub/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 font-bold">
+              <a href="https://sunilkunchoor.github.io/articles/" className="flex items-center gap-1.5 font-bold">
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-500 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-pink-500"></span>
