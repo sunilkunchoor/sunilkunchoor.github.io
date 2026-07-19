@@ -41,8 +41,8 @@ export default function Navbar() {
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-6">
           {navLinks.map((link) => (
-            <Link 
-              key={link.name} 
+            <Link
+              key={link.name}
               href={link.href}
               className="text-sm font-medium text-slate-400 hover:text-white transition-colors"
             >
@@ -62,7 +62,7 @@ export default function Navbar() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-500 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-pink-500"></span>
                 </span>
-                Knowledge Hub
+                Articles
               </a>
             </Button>
             <Button asChild variant="outline" className="border-primary/50 text-primary hover:bg-primary/10 shadow-[0_0_15px_rgba(125,249,255,0.1)] hover:shadow-[0_0_20px_rgba(125,249,255,0.25)] transition-all duration-300 bg-slate-950/30" size="sm">
@@ -83,7 +83,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Toggle */}
-        <button 
+        <button
           className="md:hidden text-white"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
@@ -96,8 +96,8 @@ export default function Navbar() {
         <div className="md:hidden glass-nav absolute top-full left-0 right-0 border-t border-white/10 animate-in slide-in-from-top duration-300">
           <div className="flex flex-col p-6 space-y-4">
             {navLinks.map((link) => (
-              <Link 
-                key={link.name} 
+              <Link
+                key={link.name}
                 href={link.href}
                 className="text-lg font-medium transition-colors flex items-center justify-between text-slate-300 hover:text-white"
                 onClick={() => setIsMobileMenuOpen(false)}
