@@ -24,7 +24,6 @@ export default function Navbar() {
     { name: 'Certifications', href: '/#certifications' },
     { name: 'Projects', href: '/#projects' },
     { name: 'Philosophy', href: '/#philosophy' },
-    { name: 'Articles', href: '/articles' },
   ];
 
   return (
@@ -41,40 +40,15 @@ export default function Navbar() {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-6">
-          {navLinks.map((link) => {
-            const isArticles = link.name === 'Articles';
-            const isActive = isArticles && pathname.startsWith('/articles');
-
-            if (isArticles) {
-              return (
-                <Link 
-                  key={link.name} 
-                  href={link.href}
-                  className={`relative text-xs font-bold px-3.5 py-1.5 rounded-full border transition-all flex items-center gap-1.5 ${
-                    isActive 
-                      ? 'bg-primary/20 border-primary text-primary shadow-[0_0_15px_rgba(125,249,255,0.2)]'
-                      : 'bg-primary/5 hover:bg-primary/10 border-primary/20 text-primary hover:text-primary-hover shadow-[0_0_10px_rgba(125,249,255,0.05)]'
-                  }`}
-                >
-                  Articles
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                  </span>
-                </Link>
-              );
-            }
-
-            return (
-              <Link 
-                key={link.name} 
-                href={link.href}
-                className="text-sm font-medium text-slate-400 hover:text-white transition-colors"
-              >
-                {link.name}
-              </Link>
-            );
-          })}
+          {navLinks.map((link) => (
+            <Link 
+              key={link.name} 
+              href={link.href}
+              className="text-sm font-medium text-slate-400 hover:text-white transition-colors"
+            >
+              {link.name}
+            </Link>
+          ))}
           <div className="flex items-center space-x-4 border-l border-white/10 pl-6 ml-2">
             <Link href="https://github.com/sunilkunchoor" target="_blank" className="text-slate-400 hover:text-white transition-colors">
               <Github className="w-5 h-5" />
@@ -82,6 +56,15 @@ export default function Navbar() {
             <Link href="https://www.linkedin.com/in/sunilkunchoor" target="_blank" className="text-slate-400 hover:text-white transition-colors">
               <Linkedin className="w-5 h-5" />
             </Link>
+            <Button asChild variant="outline" className="border-pink-500/50 text-pink-400 hover:bg-pink-500/10 shadow-[0_0_15px_rgba(236,72,153,0.1)] hover:shadow-[0_0_20px_rgba(236,72,153,0.25)] transition-all duration-300 bg-slate-950/30" size="sm">
+              <a href="https://sunilkunchoor.github.io/knowledge-hub/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 font-bold">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-500 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-pink-500"></span>
+                </span>
+                Articles
+              </a>
+            </Button>
             <Button asChild variant="outline" className="border-primary/50 text-primary hover:bg-primary/10 shadow-[0_0_15px_rgba(125,249,255,0.1)] hover:shadow-[0_0_20px_rgba(125,249,255,0.25)] transition-all duration-300 bg-slate-950/30" size="sm">
               <a href="https://skunchoor.github.io/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 font-bold">
                 <span className="relative flex h-1.5 w-1.5">
@@ -112,34 +95,26 @@ export default function Navbar() {
       {isMobileMenuOpen && (
         <div className="md:hidden glass-nav absolute top-full left-0 right-0 border-t border-white/10 animate-in slide-in-from-top duration-300">
           <div className="flex flex-col p-6 space-y-4">
-            {navLinks.map((link) => {
-              const isArticles = link.name === 'Articles';
-              const isActive = isArticles && pathname.startsWith('/articles');
-
-              return (
-                <Link 
-                  key={link.name} 
-                  href={link.href}
-                  className={`text-lg font-medium transition-colors flex items-center justify-between ${
-                    isActive 
-                      ? 'text-primary' 
-                      : isArticles 
-                        ? 'text-primary/90' 
-                        : 'text-slate-300 hover:text-white'
-                  }`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <span>{link.name}</span>
-                  {isArticles && (
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                    </span>
-                  )}
-                </Link>
-              );
-            })}
+            {navLinks.map((link) => (
+              <Link 
+                key={link.name} 
+                href={link.href}
+                className="text-lg font-medium transition-colors flex items-center justify-between text-slate-300 hover:text-white"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <span>{link.name}</span>
+              </Link>
+            ))}
             <div className="pt-4 border-t border-white/10 flex flex-col space-y-4">
+              <Button asChild variant="outline" className="border-pink-500/50 text-pink-400 hover:bg-pink-500/10 w-full" onClick={() => setIsMobileMenuOpen(false)}>
+                <a href="https://sunilkunchoor.github.io/knowledge-hub/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 font-bold">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-500 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-pink-500"></span>
+                  </span>
+                  Articles
+                </a>
+              </Button>
               <Button asChild variant="outline" className="border-primary/50 text-primary hover:bg-primary/10 w-full" onClick={() => setIsMobileMenuOpen(false)}>
                 <a href="https://skunchoor.github.io/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 font-bold">
                   <span className="relative flex h-1.5 w-1.5">
