@@ -89,6 +89,7 @@ export default async function ArticlePage({ params }: PageProps) {
   let repo = '';
   let branch = 'main';
   let remoteFilePath = '';
+  let mainPath = '';
 
   if (fs.existsSync(articleConfigPath)) {
     const config = JSON.parse(fs.readFileSync(articleConfigPath, 'utf-8'));
@@ -96,6 +97,7 @@ export default async function ArticlePage({ params }: PageProps) {
     mainTitle = config.title;
     if (config.type === 'remote') {
       isRemote = true;
+      mainPath = config.mainPath || '';
       owner = config.owner;
       repo = config.repo;
       branch = config.branch || 'main';
@@ -152,35 +154,63 @@ export default async function ArticlePage({ params }: PageProps) {
     if (!href.startsWith('http://') && !href.startsWith('https://') && !href.startsWith('mailto:') && !href.startsWith('/') && !href.startsWith('#')) {
       const hashIndex = href.indexOf('#');
       const hash = hashIndex !== -1 ? href.substring(hashIndex) : '';
-      let pathOnly = hashIndex !== -1 ? href.substring(0, hashIndex) : href;
+      const pathOnly = hashIndex !== -1 ? href.substring(0, hashIndex) : href;
 
-      // Strip .md extension
-      if (pathOnly.endsWith('.md')) {
-        pathOnly = pathOnly.slice(0, -3);
-      }
-      // Remove README.md or README
-      if (pathOnly === 'README' || pathOnly === 'README.md') {
-        pathOnly = '';
-      } else if (pathOnly.endsWith('/README')) {
-        pathOnly = pathOnly.slice(0, -7);
-      }
-
-      const baseDir = slug.length > 1 ? slug.slice(1, -1) : [];
-      const hrefParts = pathOnly.split('/');
-      const resolvedParts = [...baseDir];
-
-      for (const part of hrefParts) {
-        if (part === '.' || part === '' || part === 'docs') {
-          continue;
+      if (isRemote && remoteFilePath) {
+        const dirParts = remoteFilePath.split('/').slice(0, -1);
+        const linkParts = pathOnly.split('/');
+        
+        for (const part of linkParts) {
+          if (part === '.' || part === '') continue;
+          if (part === '..') dirParts.pop();
+          else dirParts.push(part);
         }
-        if (part === '..') {
-          resolvedParts.pop();
+        let targetRepoPath = dirParts.join('/');
+        
+        if (!targetRepoPath.endsWith('.md')) {
+          targetRepoPath += targetRepoPath.endsWith('/') ? 'README.md' : '/README.md';
+        }
+
+        const matchedPage = subPages.find((sub: any) => sub.path === targetRepoPath);
+        if (matchedPage) {
+          resolvedHref = `/articles/${mainSlug}/${matchedPage.slug.join('/')}${hash}`;
+        } else if (mainPath && targetRepoPath === mainPath) {
+          resolvedHref = `/articles/${mainSlug}${hash}`;
         } else {
-          resolvedParts.push(part);
+          // Fallback if not mapped
+          let strippedPath = pathOnly;
+          if (strippedPath.endsWith('.md')) strippedPath = strippedPath.slice(0, -3);
+          if (strippedPath === 'README' || strippedPath === 'README.md') strippedPath = '';
+          else if (strippedPath.endsWith('/README')) strippedPath = strippedPath.slice(0, -7);
+          
+          let fallbackDirParts = remoteFilePath.split('/').slice(0, -1);
+          if (fallbackDirParts[0] === 'docs') fallbackDirParts.shift();
+          
+          const fallbackResolvedParts = [...fallbackDirParts];
+          for (const part of strippedPath.split('/')) {
+            if (part === '.' || part === '' || part === 'docs') continue;
+            if (part === '..') fallbackResolvedParts.pop();
+            else fallbackResolvedParts.push(part);
+          }
+          resolvedHref = `/articles/${mainSlug}${fallbackResolvedParts.length > 0 ? '/' + fallbackResolvedParts.join('/') : ''}${hash}`;
         }
+      } else {
+        // Local files fallback
+        let strippedPath = pathOnly;
+        if (strippedPath.endsWith('.md')) strippedPath = strippedPath.slice(0, -3);
+        if (strippedPath === 'README' || strippedPath === 'README.md') strippedPath = '';
+        else if (strippedPath.endsWith('/README')) strippedPath = strippedPath.slice(0, -7);
+        
+        const baseDirParts = slug.length > 1 ? slug.slice(1, -1) : [];
+        const resolvedParts = [...baseDirParts];
+        
+        for (const part of strippedPath.split('/')) {
+          if (part === '.' || part === '') continue;
+          if (part === '..') resolvedParts.pop();
+          else resolvedParts.push(part);
+        }
+        resolvedHref = `/articles/${mainSlug}${resolvedParts.length > 0 ? '/' + resolvedParts.join('/') : ''}${hash}`;
       }
-
-      resolvedHref = `/articles/${mainSlug}${resolvedParts.length > 0 ? '/' + resolvedParts.join('/') : ''}${hash}`;
     }
 
     return `<a href="${resolvedHref}"${title ? ` title="${title}"` : ''}>${displayText}</a>`;
