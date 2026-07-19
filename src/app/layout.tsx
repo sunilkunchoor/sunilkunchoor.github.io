@@ -1,4 +1,4 @@
-import type {Metadata} from 'next';
+import type {Metadata, Viewport} from 'next';
 import Script from 'next/script';
 import Chatbot from '@/components/Chatbot';
 import './globals.css';
@@ -6,6 +6,11 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Sunil Kunchoor Basavaraju - Senior MLOps Engineer',
   description: 'Senior MLOps Engineer bridging Data Science innovation with Production reliability.',
+  manifest: '/manifest.json',
+};
+
+export const viewport: Viewport = {
+  themeColor: '#0f172a',
 };
 
 export default function RootLayout({
