@@ -62,7 +62,7 @@ export default function Navbar() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-500 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-pink-500"></span>
                 </span>
-                Articles
+                Knowledge Hub
               </a>
             </Button>
             <Button asChild variant="outline" className="border-primary/50 text-primary hover:bg-primary/10 shadow-[0_0_15px_rgba(125,249,255,0.1)] hover:shadow-[0_0_20px_rgba(125,249,255,0.25)] transition-all duration-300 bg-slate-950/30" size="sm">
@@ -112,7 +112,7 @@ export default function Navbar() {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-500 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-pink-500"></span>
                   </span>
-                  Articles
+                  Knowledge Hub
                 </a>
               </Button>
               <Button asChild variant="outline" className="border-primary/50 text-primary hover:bg-primary/10 w-full" onClick={() => setIsMobileMenuOpen(false)}>
