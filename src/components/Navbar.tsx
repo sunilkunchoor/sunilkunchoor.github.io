@@ -3,15 +3,13 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Cpu, Github, Linkedin, Menu, X, Download } from 'lucide-react';
+import { Cpu, Github, Linkedin, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useInstallPrompt } from '@/hooks/useInstallPrompt';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname() || '';
-  const { isInstallable, handleInstallClick } = useInstallPrompt();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -98,12 +96,6 @@ export default function Navbar() {
                 Contact Me
               </a>
             </Button>
-            {isInstallable && (
-              <Button onClick={handleInstallClick} variant="outline" className="border-secondary/50 text-secondary hover:bg-secondary/10 shadow-[0_0_15px_rgba(157,0,255,0.1)] transition-all duration-300" size="sm">
-                <Download className="w-4 h-4 mr-2" />
-                Install App
-              </Button>
-            )}
           </div>
         </div>
 
@@ -162,12 +154,6 @@ export default function Navbar() {
                   Contact Me
                 </a>
               </Button>
-              {isInstallable && (
-                <Button onClick={() => { handleInstallClick(); setIsMobileMenuOpen(false); }} variant="outline" className="border-secondary/50 text-secondary hover:bg-secondary/10 w-full mt-2">
-                  <Download className="w-4 h-4 mr-2" />
-                  Install App
-                </Button>
-              )}
             </div>
           </div>
         </div>
