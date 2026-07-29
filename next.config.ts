@@ -14,17 +14,6 @@ const nextConfig: NextConfig = {
   /* config options here */
   output: isGithubPages ? 'export' : undefined,
 
-  // Redirect Vercel visitors to the main GitHub Pages site, leaving /api/chat active
-  async redirects() {
-    if (isGithubPages || isDevelopment) return [];
-    return [
-      {
-        source: '/((?!api/chat).*)',
-        destination: 'https://sunilkunchoor.github.io/$1',
-        permanent: false,
-      },
-    ];
-  },
 
   typescript: {
     ignoreBuildErrors: true,
