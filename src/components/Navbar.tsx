@@ -107,12 +107,12 @@ export default function Navbar() {
             ))}
             <div className="pt-4 border-t border-white/10 flex flex-col space-y-4">
               <Button asChild variant="outline" className="border-pink-500/50 text-pink-400 hover:bg-pink-500/10 w-full" onClick={() => setIsMobileMenuOpen(false)}>
-                <a href="https://sunilkunchoor.github.io/knowledge-hub/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 font-bold">
+                <a href="https://sunilkunchoor.github.io/articles/" className="flex items-center justify-center gap-1.5 font-bold">
                   <span className="relative flex h-1.5 w-1.5">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-500 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-pink-500"></span>
                   </span>
-                  Knowledge Hub
+                  Articles
                 </a>
               </Button>
               <Button asChild variant="outline" className="border-primary/50 text-primary hover:bg-primary/10 w-full" onClick={() => setIsMobileMenuOpen(false)}>
