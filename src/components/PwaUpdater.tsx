@@ -4,6 +4,15 @@ import { useEffect } from 'react';
 export default function PwaUpdater() {
   useEffect(() => {
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+      if (process.env.NODE_ENV === 'development') {
+        navigator.serviceWorker.getRegistrations().then((registrations) => {
+          for (let registration of registrations) {
+            registration.unregister();
+          }
+        });
+        return;
+      }
+
       let refreshing = false;
 
       // Reload when the new service worker takes over
