@@ -29,7 +29,7 @@ class ChatRequest(BaseModel):
     messages: list[Message]
 
 try:
-    client = genai.Client()
+    client = genai.Client(http_options={'enable_telemetry': True})
 except Exception as e:
     client = None
     print(f"Failed to initialize Gemini client: {e}")
