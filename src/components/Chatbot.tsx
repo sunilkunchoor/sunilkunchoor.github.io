@@ -42,6 +42,7 @@ export default function Chatbot() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_CHAT_API_TOKEN}`,
         },
         body: JSON.stringify({
           messages: [...messages, { role: 'user', content: userMessage }]
