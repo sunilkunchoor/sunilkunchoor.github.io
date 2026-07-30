@@ -7,6 +7,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Sunil Kunchoor Basavaraju - Senior MLOps Engineer',
   description: 'Senior MLOps Engineer bridging Data Science innovation with Production reliability.',
+  manifest: '/manifest.json',
 };
 
 export const viewport: Viewport = {
